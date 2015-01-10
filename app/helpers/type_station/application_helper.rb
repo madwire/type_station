@@ -1,4 +1,4 @@
-module BlastCms
+module TypeStation
   module ApplicationHelper
   end
 end

@@ -9,7 +9,7 @@ require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "blast_cms"
+require "type_station"
 
 module Dummy
   class Application < Rails::Application

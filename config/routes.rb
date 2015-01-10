@@ -1,2 +1,3 @@
-BlastCms::Engine.routes.draw do
+TypeStation::Engine.routes.draw do
+  root :to => 'articles#index'
 end

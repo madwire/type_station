@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :blast_cms do
+# task :type_station do
 #   # Task goes here
 # end
