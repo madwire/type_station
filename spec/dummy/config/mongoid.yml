@@ -1,0 +1,12 @@
+test:
+  sessions:
+    default:
+      database: type_station_test
+      hosts:
+        - localhost:27017
+development:
+  sessions:
+    default:
+      database: type_station_development
+      hosts:
+        - localhost:27017
