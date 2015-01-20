@@ -10,5 +10,17 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery-fileupload/basic
+//= require jquery.cloudinary
 //= require medium-editor
-//= require "type_station/editable_text"
+//= require drop
+//= require vex.combined.min
+//= require type_station/lib/ts
+//= require type_station/lib/models
+//= require_tree ./editables
+//= require type_station/init
+//= require_self
+
+jQuery(function(){
+  window.TS.init();
+});

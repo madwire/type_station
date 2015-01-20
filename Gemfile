@@ -12,6 +12,9 @@ gemspec
 
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'sass-rails'
+gem "jquery-fileupload-rails"
+gem 'cloudinary'
 
 # To use debugger
 gem 'debugger'

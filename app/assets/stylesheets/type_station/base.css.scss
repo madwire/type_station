@@ -1,0 +1,35 @@
+.ts-button-group {
+  display: table;
+  button {
+    display: table-cell;
+  }
+}
+
+.ts-hidden {
+  display: none;
+}
+
+.ts-button {
+  font-size: 1em;
+  background: #eee;
+  color: #444;
+  border: 0px;
+  padding: 7px 5px;
+  margin: 0px;
+  outline: none;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+.ts-button-primary {
+  background: #57ad68;
+  color: #fff;
+}
+
+.ts-progress-bar {
+  width: 0;
+  height: 5px;
+  background: #57ad68;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}

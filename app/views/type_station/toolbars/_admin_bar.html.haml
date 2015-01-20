@@ -1,0 +1,29 @@
+#ts-admin-bar-edit
+  %button.ts-button.ts-button-primary 
+    %i.ion-ios-compose-outline
+
+#ts-admin-bar.ts-hidden
+  %ul
+    %li.ts-brand
+      ts
+    %li.ts-title
+      = text_field_tag 'page_title', model.try(:title).value, class: 'ts-editable-text', data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: :title}
+    %li.ts-actions
+      .ts-button-group
+        %button.ts-button.ts-options
+          %i.ion-ios-gear
+        %button#ts-admin-bar-cancel.ts-button
+          %i.ion-ios-close-outline
+        %button#ts-admin-bar-save.ts-button.ts-button-primary 
+          %i.ion-ios-checkmark-outline
+
+#ts-admin-bar-options
+  %ul
+    %li
+      Options 1
+    %li
+      Options 2
+    %li
+      Options 3
+    %li
+      Options 4

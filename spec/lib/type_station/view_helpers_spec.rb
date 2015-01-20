@@ -16,9 +16,14 @@ RSpec.describe TypeStation::ViewHelpers do
       end
 
       @presenter = TypeStation::PagePresenter.new @page, view_context.new
+      allow(@presenter).to receive(:edit_url).and_return("URL")
     end
 
     describe 'none Admin mode' do
+
+      before do
+        allow(helper).to receive(:type_station_current_user).and_return(false)
+      end
 
       it 'will render the default text value' do
         value = helper.editable @presenter, :title_test do
@@ -52,48 +57,47 @@ RSpec.describe TypeStation::ViewHelpers do
 
     describe 'Inline edit' do
 
+      before do
+        allow(helper).to receive(:type_station_current_user).and_return({})
+      end
+
       it 'will render the default text value' do
-        helper.inline_edit_js
-        value = helper.editable @presenter, :title_test do
+        value = helper.editable @presenter, :title_test, id: 'test' do
           'Test'
         end
-        result = content_tag(:span, "Test", class: 'ts-editable-text', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :title_test})
+        result = content_tag(:span, "Test", id: 'test', class: 'ts-editable-text', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :title_test, ts_data:{} })
         expect(value).to eq(result)
       end
 
       it 'will render the default html value' do
-        helper.inline_edit_js
-        value = helper.editable @presenter, :body, type: :html do
+        value = helper.editable @presenter, :body, type: :html, id: 'test' do
           '<h1>Test</h1>'.html_safe
         end
-        result = content_tag(:div,'<h1>Test</h1>', class: 'ts-editable-html', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :body})
+        result = content_tag(:div,'<h1>Test</h1>'.html_safe, id: 'test', class: 'ts-editable-html', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :body, ts_data:{} })
         expect(value).to eq(result)
       end
 
       it 'will render the default image value' do
-        helper.inline_edit_js
-        value = helper.editable @presenter, :image, type: :image do |image|
+        value = helper.editable @presenter, :image, type: :image, id: 'test' do |image|
           image.url || "http://placehold.it/350x150"
         end
-        result = content_tag(:div,'http://placehold.it/350x150', class: 'ts-editable-image', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :image})
+        result = content_tag(:div,'http://placehold.it/350x150', id: 'test', class: 'ts-editable-image', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :image, ts_data:{} })
         expect(value).to eq(result)
       end
 
       it 'will render the default select value' do
-        helper.inline_edit_js
-        value = helper.editable @presenter, :select, type: :select do |multiple_select|
+        value = helper.editable @presenter, :select, type: :select, id: 'test' do |multiple_select|
           multiple_select.values || "Other"
         end
-        result = content_tag(:div,'Other', class: 'ts-editable-select', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :select})
+        result = content_tag(:div,'Other', id: 'test', class: 'ts-editable-select', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :select, ts_data:{} })
         expect(value).to eq(result)
       end
 
       it 'will render the default multiple_select value' do
-        helper.inline_edit_js
-        value = helper.editable @presenter, :multiple_select, type: :multiple_select do |multiple_select|
+        value = helper.editable @presenter, :multiple_select, type: :multiple_select, id: 'test' do |multiple_select|
           multiple_select.values || "Other"
         end
-        result = content_tag(:div,'Other', class: 'ts-editable-multiple-select', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :multiple_select})
+        result = content_tag(:div,'Other', id: 'test', class: 'ts-editable-multiple-select', data: {ts_id: @presenter.to_param, ts_edit_url: @presenter.edit_url, ts_field: :multiple_select, ts_data:{} })
         expect(value).to eq(result)
       end
 
@@ -124,9 +128,14 @@ RSpec.describe TypeStation::ViewHelpers do
       end
 
       @presenter = TypeStation::PagePresenter.new @page, view_context.new
+      allow(@presenter).to receive(:edit_url).and_return("URL")
     end
 
     describe 'none Admin mode' do
+
+      before do
+        allow(helper).to receive(:type_station_current_user).and_return(false)
+      end
 
       it 'will render the text value' do
         value = helper.editable @presenter, :title_test do

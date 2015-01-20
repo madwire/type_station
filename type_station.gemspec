@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.1.6"
   s.add_dependency "mongoid", "~> 4.0.0"
   s.add_dependency "mongoid-tree", "~> 2.0.0"
+  s.add_dependency "jquery-fileupload-rails"
+  s.add_dependency 'cloudinary'
   s.add_dependency "coffee-rails"
   s.add_dependency "haml-rails"
 

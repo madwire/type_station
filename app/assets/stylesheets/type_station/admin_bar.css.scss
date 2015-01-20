@@ -1,0 +1,84 @@
+body {
+  padding-bottom: 50px;
+}
+
+
+#ts-admin-bar-edit {
+  position: fixed;
+  left: 5px;
+  bottom: 5px;
+  width: 100px;
+  button {
+    line-height: 1.5em;
+    padding: 0px 10px;
+    i {
+      font-size: 2em;
+    }
+  }
+}
+
+#ts-admin-bar {
+  position: fixed;
+  background: #fff;
+  border-top: 3px solid #ccc;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
+  font-family: Tahoma, Geneva, sans-serif;
+
+  ul { 
+    display: table;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    padding: 0px;
+    li {
+      display: table-cell;
+      margin: 0px;
+      padding: 0px;
+      vertical-align: middle;
+
+      &.ts-brand {
+        background: #57ad68;
+        color: #fff;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      &.ts-title {
+        width: 78%;
+        input {
+          display: block;
+          width: 100%;
+          border: 0px;
+          outline: none;
+          padding: 7px 15px;
+          font-size: 1.4em;
+        }
+      }
+
+      &.ts-actions {
+        width: 15%;
+
+        .ts-button-group {
+          width: 100%;
+        }
+
+        button {
+          width: 30%;
+          line-height: 1.5em;
+          i {
+            font-size: 2em;
+          }
+        }
+
+        .ts-button-primary {
+          width: 40%;
+        }
+      }
+    }
+
+  } 
+}

@@ -1,4 +1,4 @@
-
+<%= Cloudinary::Utils.sign_request(Cloudinary::Uploader.build_upload_params({}), {}) %>
 
 <div style='margin:40px;'>
   <h1>
@@ -39,8 +39,33 @@
   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <%- end %>
-</div>
 
+
+<%= editable @page, :image_one, type: :image do |image| %>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <%= ts_image_tag(image.identifier || 'http://lorempixel.com/400/200/', width: 200, height: 200, class: 'test', crop: :fill) %>
+  <%= ts_image_tag(image.identifier || 'http://lorempixel.com/400/200/', width: 500, height: 200, class: 'test', crop: :fill) %>
+  <%= ts_image_tag(image.identifier || 'http://lorempixel.com/400/200/', width: 100, height: 200, class: 'test', crop: :fit) %>
+<%- end %>
+
+<%= editable @page, :file, type: :file do |file| %>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <%= ts_link_to(file.identifier || 'http://lorempixel.com/400/200/', class: 'text', title: 'hello') do %>
+    Hello
+  <%- end %>
+<%- end %>
+
+</div>
 
 <br/>
 <br/>
@@ -110,3 +135,5 @@
   Hello
 <%- end %>
 </h1>
+
+<%= type_station_admin_toolbar(@page) %>

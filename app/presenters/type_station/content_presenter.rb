@@ -19,19 +19,5 @@ module TypeStation
       end.to_s
     end
 
-    private
-
-    def image_struct
-      OpenStruct.new({url: content.get, alt: ''})
-    end
-
-    def image_struct
-      OpenStruct.new({url: '', alt: ''})
-    end
-
-    def select_struct
-      OpenStruct.new({value: content.get, values: content.get })
-    end
-
   end
 end
