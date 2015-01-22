@@ -10,9 +10,9 @@ class window.TS.EditableText
     @elements.on 'input', ->
       model = window.TS.getModel $(@).data('ts-edit-url')
       if $(@).is(':input')
-        model.set($(@).data('ts-field'), $(@).val())
+        model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).val(), type: 'text' })
       else
-        model.set($(@).data('ts-field'), $(@).html())
+        model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).html(), type: 'text' })
 
   disable: ->
     @editor.deactivate()
@@ -30,10 +30,9 @@ class window.TS.EditableHtml
     @elements.on 'input', ->
       model = window.TS.getModel $(@).data('ts-edit-url')
       if $(@).is(':input')
-        model.set($(@).data('ts-field'), $(@).val())
+        model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).val(), type: 'html' })
       else
-        model.set($(@).data('ts-field'), $(@).html())
-
+        model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).html(), type: 'html' })
   disable: ->
     @editor.deactivate()
     @elements.off 'input'

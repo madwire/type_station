@@ -16,6 +16,9 @@ buildUploader = (element, data)->
       $element.data('drop').close()
       $(this).prop('disabled', false)
       $('.ts-progress-bar').remove()
+
+      model = window.TS.getModel $element.data('ts-edit-url')
+      model.set($element.data('ts-field'), { field: $element.data('ts-field'), value: {identifier: data.result.public_id}, type: 'file' })
   $input
 
 setUpDrops = (elements)->
@@ -24,7 +27,7 @@ setUpDrops = (elements)->
   for element in elements
     tsData = $(element).data('tsData')
     drop = new Drop
-      target: element
+      target: $('.ts-editable-button', element)[0]
       content: buildUploader(element, tsData)[0]
       position: 'bottom center'
       openOn: 'click'
@@ -37,6 +40,8 @@ setUpDrops = (elements)->
 class window.TS.EditableFile
   constructor: (@elements) ->
     @drops = []
+    for element in elements
+      $(element).append($('<div>').addClass('ts-editable-button').addClass('ts-button').html("<i class='ion-ios-compose-outline'></i>"))
 
   enable: ->
     @disable()

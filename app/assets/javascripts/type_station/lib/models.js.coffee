@@ -9,5 +9,17 @@ class window.TS.Store
       callback?(key, value)
 
 class window.TS.Model extends window.TS.Store
-  save: ->
-    console.log 'Save!'
+  save: (callback = ->) ->
+    self = @
+    data = []
+
+    for key, value of @STORE
+      data.push(value)
+
+    $.ajax
+      type: "PATCH"
+      url: self.id
+      dataType: 'json'
+      contentType: 'application/json'
+      data: JSON.stringify({contents: data})
+      success: (data) -> callback(data)

@@ -16,6 +16,10 @@ class window.TS.AdminBar
     $('#ts-admin-bar-save').on 'click', ->
       window.TS.save()
 
+    $('#ts-admin-bar input').on 'change', ->
+      model = window.TS.getModel $(@).data('ts-edit-url')
+      model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).val(), type: 'text' })
+
     drop = new Drop
       target: $('#ts-admin-bar .ts-options i')[0]
       content: $('#ts-admin-bar-options')[0]

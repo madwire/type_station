@@ -1,7 +1,7 @@
 module TypeStation
   class PagePresenter < BasePresenter
     presents :page
-    delegate :to_param, :path, :slug, :template_name, :template_name?, :redirect_to, :redirect?, to: :page
+    delegate :to_param, :title, :path, :slug, :template_name, :template_name?, :redirect_to, :redirect?, to: :page
 
     def initialize(object, template)
       super(object, template)
@@ -10,10 +10,6 @@ module TypeStation
 
     def edit_url
       h.type_station.admin_page_url(page)
-    end
-
-    def title
-      ContentPresenter.new(OpenStruct.new({type: :text, get: page.title}), @template)
     end
 
     def children

@@ -7,7 +7,7 @@
     %li.ts-brand
       ts
     %li.ts-title
-      = text_field_tag 'page_title', model.try(:title).value, class: 'ts-editable-text', data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: :title}
+      = text_field_tag 'page_title', model.try(:title), data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: :title, ts_data: {}}
     %li.ts-actions
       .ts-button-group
         %button.ts-button.ts-options

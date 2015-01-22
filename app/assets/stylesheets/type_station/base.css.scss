@@ -33,3 +33,10 @@
   top: 0px;
   left: 0px;
 }
+
+.ts-editable-image, .ts-editable-file { position: relative;}
+.ts-editable-button {
+  position: absolute;
+  top:0px;
+  right: 0px;
+}

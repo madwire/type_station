@@ -9,7 +9,12 @@ module TypeStation
       data = options[:data] || {}
 
       if presenter.present?
-        result += presenter.call(&block)
+        result += case type
+        when :image, :file
+          capture(OpenStruct.new(presenter.value), &block)
+        else
+          presenter.value
+        end
       else
         result += capture(OpenStruct.new({}), &block)
       end
@@ -17,20 +22,45 @@ module TypeStation
       if type_station_current_user
         case type
         when :text
-          content_tag(:span, result, class: 'ts-editable-text', id: id, data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: key, ts_data: data})
+          content_tag(:span, result.html_safe, class: 'ts-editable-text', id: id, data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: key, ts_data: data})
         when :html
           content_tag(:div, result.html_safe, class: 'ts-editable-html', id: id, data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: key, ts_data: data})
         when :image, :file
           data = Cloudinary::Utils.sign_request(Cloudinary::Uploader.build_upload_params({}), {}) rescue {}
           content_tag(:div, result.html_safe, class: "ts-editable-#{type}", id: id, data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: key, ts_data: data })
         when :select
-          content_tag(:div, result.html_safe, class: 'ts-editable-select', id: id, data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: key, ts_data: {}})
+          content_tag(:div, result.html_safe, class: 'ts-editable-select', id: id, data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: key, ts_data: data})
         when :multiple_select
           content_tag(:div, result.html_safe, class: 'ts-editable-multiple-select', id: id, data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: key, ts_data: data})
         end
       else
         result
       end
+    end
+
+    def ts_new(name_or_url, options = {}, &block)
+      content_tag = options[:content_tag] || :div
+      parent = options[:parent] || nil
+      fields = options[:fields] || ['title']
+
+      if parent.is_a?(String)
+        parent_id = parent
+      else
+        parent_id = parent.to_param
+      end
+
+      if name_or_url.is_a?(Symbol)
+        url = case name_or_url
+        when :page
+          type_station.admin_pages_url
+        end
+      else
+        url = name_or_url
+      end
+
+      result = capture(&block)
+
+      content_tag(content_tag, result.html_safe, class: 'ts-new-model', data: {ts_new_url: url, ts_parent_id: parent_id, ts_fields: fields})
     end
 
     def ts_image_tag(identifier, options = {})
