@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "A simple CMS that just works and can be bolted onto a rails app with easy."
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", '~> 4.2', ">= 4.2.0"
