@@ -1,4 +1,6 @@
 <%= Cloudinary::Utils.sign_request(Cloudinary::Uploader.build_upload_params({}), {}) %>
+<%= testing_helper %>
+<%= testing_again %>
 
 <ul>
   <%- @page.children.each do |page| %>
