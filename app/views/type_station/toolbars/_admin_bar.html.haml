@@ -1,29 +1,101 @@
 #ts-admin-bar-edit
   %button.ts-button.ts-button-primary 
-    %i.ion-ios-compose-outline
+    %i.ion-compose
 
 #ts-admin-bar.ts-hidden
   %ul
     %li.ts-brand
-      ts
+      %i.ion-ios-book
+      %i.ion-android-add.smaller
     %li.ts-title
       = text_field_tag 'page_title', model.try(:title), data: {ts_id: model.to_param, ts_edit_url: model.edit_url, ts_field: :title, ts_data: {}}
     %li.ts-actions
       .ts-button-group
         %button.ts-button.ts-options
-          %i.ion-ios-gear
+          %i.ion-android-settings
         %button#ts-admin-bar-cancel.ts-button
-          %i.ion-ios-close-outline
+          %i.ion-android-close
         %button#ts-admin-bar-save.ts-button.ts-button-primary 
-          %i.ion-ios-checkmark-outline
+          %i.ion-android-done
+
+  #insert-content
+    %ul
+      %li.insert-new
+        .insert-icon
+          %i.ion-quote
+        .insert-name
+          Text
+      %li.insert-new
+        .insert-icon
+          %i.ion-code
+        .insert-name
+          Html
+      %li.insert-new
+        .insert-icon
+          %i.ion-images
+        .insert-name
+          Image
+      %li.insert-new
+        .insert-icon
+          %i.ion-paperclip
+        .insert-name
+          File
+      %li.insert-new
+        .insert-icon
+          %i.ion-android-map
+        .insert-name
+          Map
+      %li.insert-new
+        .insert-icon
+          %i.ion-android-clipboard
+        .insert-name
+          Form
+
 
 #ts-admin-bar-options
   %ul
     %li
-      Options 1
+      = link_to "#" do
+        %span.icon
+          %i.ion-ios-paper-outline
+        %span.text
+          .large-text
+            New page
+          .sub-text
+            Create a new root page
     %li
-      Options 2
+      = link_to "#" do
+        %span.icon
+          %i.ion-ios-photos-outline
+        %span.text
+          .large-text
+            New sub page
+          .sub-text
+            Create a new sub page
     %li
-      Options 3
+      = link_to "#" do
+        %span.icon
+          %i.ion-ios-trash-outline
+        %span.text
+          .large-text
+            Delete page
+          .sub-text
+            Permantely delete this page
     %li
-      Options 4
+      = link_to "#" do
+        %span.icon
+          %i.ion-ios-shuffle
+        %span.text
+          .large-text
+            Change structure
+          .sub-text
+            Reorder the site's pages
+    %li
+      = link_to "#" do
+        %span.icon
+          %i.ion-ios-settings
+        %span.text
+          .large-text
+            Settings
+          .sub-text
+            Manage global site settings

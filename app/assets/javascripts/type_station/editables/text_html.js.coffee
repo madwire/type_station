@@ -3,6 +3,7 @@ class window.TS.EditableText
     @editor = new MediumEditor @elements,
       disableReturn: true
       buttons: ['bold', 'italic', 'underline', 'anchor']
+      buttonLabels: 'fontawesome'
     @editor.deactivate()
 
   enable: ->
@@ -23,6 +24,7 @@ class window.TS.EditableHtml
   constructor: (@elements) ->
     @editor = new MediumEditor @elements,
       buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'unorderedlist', 'orderedlist', 'justifyLeft', 'justifyFull', 'justifyCenter', 'justifyRight']
+      buttonLabels: 'fontawesome'
     @editor.deactivate()
 
   enable: ->

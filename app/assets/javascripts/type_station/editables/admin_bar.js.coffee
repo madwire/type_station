@@ -9,7 +9,7 @@ class window.TS.AdminBar
       window.TS.enable()
 
     $('#ts-admin-bar-cancel').on 'click', ->
-      $('#ts-admin-bar').addClass('ts-hidden')
+      $('#ts-admin-bar').addClass('ts-hidden').removeClass 'insert-open'
       $('#ts-admin-bar-edit').removeClass('ts-hidden')
       window.TS.disable()
     
@@ -20,6 +20,9 @@ class window.TS.AdminBar
       model = window.TS.getModel $(@).data('ts-edit-url')
       model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).val(), type: 'text' })
 
+    $('.ts-brand').on 'click', ->
+      $("#ts-admin-bar").toggleClass 'insert-open'
+
     drop = new Drop
       target: $('#ts-admin-bar .ts-options i')[0]
       content: $('#ts-admin-bar-options')[0]
@@ -28,5 +31,7 @@ class window.TS.AdminBar
       classes: 'drop-theme-arrows-bounce-dark'
 
   enable: ->
+    $('body').addClass('ts-edit-mode');
 
   disable: ->
+    $('body').removeClass('ts-edit-mode');

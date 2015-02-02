@@ -1,3 +1,9 @@
+$primary-color: #fff; 
+$primary-border-color: #ccc;
+
+$secondary-color: #428bca;
+$secondary-border-color: #357ebd;
+
 .ts-button-group {
   display: table;
   button {
@@ -18,17 +24,21 @@
   margin: 0px;
   outline: none;
   font-family: Tahoma, Geneva, sans-serif;
+  -webkit-transition: background 0.5s;
+  transition: background 0.5s;
 }
 
 .ts-button-primary {
-  background: #57ad68;
+  background: rgba(27,33,36,0.67);
   color: #fff;
+  &:hover { background: rgba(27,33,36,0.9); }
 }
 
 .ts-progress-bar {
   width: 0;
   height: 5px;
-  background: #57ad68;
+  background: $primary-border-color
+;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -37,6 +47,101 @@
 .ts-editable-image, .ts-editable-file { position: relative;}
 .ts-editable-button {
   position: absolute;
-  top:0px;
-  right: 0px;
+  bottom:0px;
+  left: 0px;
+  z-index: 10;
+  display: none;
+  font-size: 2.5em;
+  line-height: 1;
+  background: rgba(27,33,36,0.67);
+  color: #fff;
+  width: 1.4em;
+  height: 1.4em;
+  text-align: center;
+  cursor: pointer;
+}
+
+body.ts-edit-mode {
+  .ts-editable-html, .ts-editable-image, .ts-editable-file {
+    border: 1px solid transparent;
+    outline: none;
+    -webkit-transition: border 0.5s;
+    transition: border 0.5s;
+    &:hover { border: 1px solid #428bca; }//$primary-border-color; }
+  }
+  .ts-editable-button { display: block; }
+}
+
+
+.medium-editor-toolbar {
+  background: $primary-color;
+  border: 1px solid $primary-border-color;
+}
+.medium-editor-toolbar li button {
+  border-right: 1px solid $primary-border-color;
+  color: #666;
+}
+.medium-toolbar-arrow-under:after {
+  border-color: $primary-color transparent transparent transparent;
+}
+.drop-element.drop-theme-arrows-bounce-dark { z-index: 1001; }
+.drop-element.drop-theme-arrows-bounce-dark .drop-content {
+  background: $primary-color;
+  border: 1px solid $primary-border-color;
+  border-radius: 4px;
+  padding: 0.5em 0;
+  ul.ts-model-fields {
+    margin: 4px 15px;
+    &:after { 
+      content: '';
+      display: table;
+      clear: both;
+    }
+    li { 
+      &.ts-inline-field { float: left; }
+      label { 
+        display: inline-block;
+        padding-right: 10px;
+      }
+      input { 
+        height: 2.25em;
+        font-size: 1em;
+        padding: 5px;
+        border: 1px solid $primary-border-color;
+        color: #444;
+        outline: none;
+      }
+      button { 
+        width: 1.8em;
+        height: 1.5em;
+        font-size: 1.5em;
+      }
+    }
+  }
+}
+.drop-element.drop-theme-arrows-bounce-dark.drop-element-attached-top.drop-element-attached-left.drop-target-attached-bottom .drop-content:before {
+  border-bottom-color: #fff; //$primary-color;
+}
+.drop-element.drop-theme-arrows-bounce-dark.drop-element-attached-bottom.drop-element-attached-center .drop-content:before {
+  border-top-color: #fff; ///$primary-color;
+}
+
+
+.ts-file-style {
+  border-radius: 4px;
+  border: 1px solid $secondary-border-color;
+  background-color: $secondary-color;
+  color: $primary-color;
+  margin: 8px 25px;
+  padding: 4px 15px;
+  cursor: pointer;
+  transition: background-color .5s;
+  i.ts-file-style-icon {
+    vertical-align: middle;
+    font-size: 1.7em;
+  }
+  span.ts-file-style-text {
+    margin-right: 15px;
+  }
+  &:hover { background-color: $secondary-border-color; }
 }

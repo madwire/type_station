@@ -1,8 +1,16 @@
 buildUploader = (element, data)->
   elementId = $(element).attr('id')
   $input = $('<input/>')
+  $label = $('<label/>')
+
+  $labelIcon = $('<i/>').addClass 'ion-ios-upload ts-file-style-icon'
+  $labelText = $('<span/>').addClass('ts-file-style-text').text('Upload file')
+
+  $label
+    .addClass 'ts-file-style'
+
   $input
-    .attr({type: "file", name: "file", class: 'ts-editable-file-input', 'data-form-data': JSON.stringify(data), 'data-element-id': elementId})
+    .attr({type: "file", name: "file", class: 'ts-editable-file-input', style: 'display: none','data-form-data': JSON.stringify(data), 'data-element-id': elementId})
     .cloudinary_fileupload()
     .bind 'cloudinaryprogress', (e, data) ->
       $('.ts-progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%')
@@ -19,7 +27,12 @@ buildUploader = (element, data)->
 
       model = window.TS.getModel $element.data('ts-edit-url')
       model.set($element.data('ts-field'), { field: $element.data('ts-field'), value: {identifier: data.result.public_id}, type: 'file' })
-  $input
+
+
+  $label
+    .append $labelText
+    .append $labelIcon
+    .append $input
 
 setUpDrops = (elements)->
   drops = []
@@ -29,7 +42,7 @@ setUpDrops = (elements)->
     drop = new Drop
       target: $('.ts-editable-button', element)[0]
       content: buildUploader(element, tsData)[0]
-      position: 'bottom center'
+      position: 'bottom left'
       openOn: 'click'
       classes: 'drop-theme-arrows-bounce-dark'
     $(element).data('drop', drop)
@@ -40,8 +53,8 @@ setUpDrops = (elements)->
 class window.TS.EditableFile
   constructor: (@elements) ->
     @drops = []
-    for element in elements
-      $(element).append($('<div>').addClass('ts-editable-button').addClass('ts-button').html("<i class='ion-ios-compose-outline'></i>"))
+    for element in @elements
+      $(element).append($('<div>').addClass('ts-editable-button').addClass('ts-button').html("<i class='ion-android-attach'></i>"))
 
   enable: ->
     @disable()
