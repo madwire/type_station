@@ -37,8 +37,7 @@ $secondary-border-color: #357ebd;
 .ts-progress-bar {
   width: 0;
   height: 5px;
-  background: $primary-border-color
-;
+  background: $primary-border-color;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -51,18 +50,20 @@ $secondary-border-color: #357ebd;
   left: 0px;
   z-index: 10;
   display: none;
-  font-size: 2.5em;
+  font-size: 20pt;
+  box-sizing: content-box;
   line-height: 1;
   background: rgba(27,33,36,0.67);
   color: #fff;
   width: 1.4em;
-  height: 1.4em;
+  height: 1.3em;
   text-align: center;
   cursor: pointer;
+  i { vertical-align: middle; }
 }
 
 body.ts-edit-mode {
-  .ts-editable-html, .ts-editable-image, .ts-editable-file {
+  .ts-editable-html, .ts-editable-image, .ts-editable-file, .ts-editable-text {
     border: 1px solid transparent;
     outline: none;
     -webkit-transition: border 0.5s;
@@ -92,6 +93,7 @@ body.ts-edit-mode {
   padding: 0.5em 0;
   ul.ts-model-fields {
     margin: 4px 15px;
+    padding: 0;
     &:after { 
       content: '';
       display: table;
@@ -128,6 +130,8 @@ body.ts-edit-mode {
 
 
 .ts-file-style {
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 11pt;
   border-radius: 4px;
   border: 1px solid $secondary-border-color;
   background-color: $secondary-color;
@@ -136,6 +140,9 @@ body.ts-edit-mode {
   padding: 4px 15px;
   cursor: pointer;
   transition: background-color .5s;
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
   i.ts-file-style-icon {
     vertical-align: middle;
     font-size: 1.7em;
