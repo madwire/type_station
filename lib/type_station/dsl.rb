@@ -34,11 +34,12 @@ module TypeStation
 
       def _build_model(title, options, parent)
         parent_id = parent ? parent.id : nil
+        name = options[:name]
         template_name = options[:template] || (parent ? title.parameterize('_') : 'index')
         redirect_to = options[:redirect_to]
         slug = options[:slug]
-
-        model = ::TypeStation::Page.create(title: title, template_name: template_name, redirect_to: redirect_to, parent_id: parent_id)
+        
+        model = ::TypeStation::Page.create(title: title, name: name, template_name: template_name, redirect_to: redirect_to, parent_id: parent_id)
         
         if slug.present?
           model.slug = slug 

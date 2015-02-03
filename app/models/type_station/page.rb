@@ -8,6 +8,7 @@ module TypeStation
     embeds_many :contents, class_name: 'TypeStation::Content'
 
     # FIELDS
+    field :name, type: Symbol
     field :title, type: String, default: 'Untitled'
     field :template_name, type: String, default: 'undefined'
 
@@ -40,6 +41,10 @@ module TypeStation
 
     def self.find_by_path(path)
       self.where(path: File.join('',path)).first
+    end
+
+    def self.find_by_name(name)
+      self.where(name: name).first
     end
 
     # INSTANT METHODS

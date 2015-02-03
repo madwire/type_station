@@ -2,6 +2,10 @@ module TypeStation
   module Helpers
     module Utilities
 
+      def ts_page(name)
+        PagePresenter.new(TypeStation::Page.find_by_name(name), self)
+      end
+
       def ts_init
         result = ''.html_safe
         if type_station_current_user

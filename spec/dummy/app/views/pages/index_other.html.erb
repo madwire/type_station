@@ -2,6 +2,8 @@
 <%= testing_helper %>
 <%= testing_again %>
 
+<%= ts_page(:team) %>
+
 <ul>
   <%- @page.children.each do |page| %>
     <li><%= link_to page.title, page.path %></li>
