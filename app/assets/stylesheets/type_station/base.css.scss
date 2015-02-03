@@ -41,6 +41,7 @@ $secondary-border-color: #357ebd;
   position: fixed;
   top: 0px;
   left: 0px;
+  z-index: 100000;
 }
 
 .ts-editable-image, .ts-editable-file { position: relative;}
@@ -68,7 +69,7 @@ body.ts-edit-mode {
     outline: none;
     -webkit-transition: border 0.5s;
     transition: border 0.5s;
-    &:hover { border: 1px solid #428bca; }//$primary-border-color; }
+    &:hover { outline: 1px solid #428bca; }//$primary-border-color; }
   }
   .ts-editable-button { display: block; }
 }
@@ -155,3 +156,18 @@ body.ts-edit-mode {
   }
   &:hover { background-color: $secondary-border-color; }
 }
+
+/* Hack for ionicicons v2 (no animation code) */
+.ion-spin-animation { -webkit-animation: spin 1s infinite linear; -moz-animation: spin 1s infinite linear; -o-animation: spin 1s infinite linear; animation: spin 1s infinite linear; }
+
+@-moz-keyframes spin { 0% { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(359deg); } }
+@-webkit-keyframes spin { 0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(359deg); } }
+@-o-keyframes spin { 0% { -o-transform: rotate(0deg); }
+    100% { -o-transform: rotate(359deg); } }
+@-ms-keyframes spin { 0% { -ms-transform: rotate(0deg); }
+    100% { -ms-transform: rotate(359deg); } }
+@keyframes spin { 0% { transform: rotate(0deg); }
+    100% { transform: rotate(359deg); } }
+.ion-load-a.ion-spin-animation { -webkit-animation-timing-function: steps(8, start); -moz-animation-timing-function: steps(8, start); animation-timing-function: steps(8, start); }

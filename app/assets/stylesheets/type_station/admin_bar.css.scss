@@ -78,6 +78,7 @@ $admin-bar-icon-size: 26.5pt;
 
         button {
           width: 30%;
+          cursor: pointer;
           line-height: 1.5em;
           i {
             font-size: 31pt; // $admin-bar-icon-size;
