@@ -8,11 +8,11 @@ class window.TS.EditableText
   enable: ->
     @editor.activate()
     @elements.on 'input', ->
-      model = window.TS.getModel $(@).data('ts-edit-url')
+      model = window.TS.getModel $(@).data('ts-url')
       if $(@).is(':input')
-        model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).val(), type: 'text' })
+        model.set($(@).data('ts-key'), { field: $(@).data('ts-key'), value: $(@).val(), type: 'text' })
       else
-        model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).html(), type: 'text' })
+        model.set($(@).data('ts-key'), { field: $(@).data('ts-key'), value: $(@).html(), type: 'text' })
 
   disable: ->
     @editor.deactivate()
@@ -28,11 +28,11 @@ class window.TS.EditableHtml
   enable: ->
     @editor.activate()
     @elements.on 'input', ->
-      model = window.TS.getModel $(@).data('ts-edit-url')
+      model = window.TS.getModel $(@).data('ts-url')
       if $(@).is(':input')
-        model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).val(), type: 'html' })
+        model.set($(@).data('ts-key'), { field: $(@).data('ts-key'), value: $(@).val(), type: 'html' })
       else
-        model.set($(@).data('ts-field'), { field: $(@).data('ts-field'), value: $(@).html(), type: 'html' })
+        model.set($(@).data('ts-key'), { field: $(@).data('ts-key'), value: $(@).html(), type: 'html' })
   disable: ->
     @editor.deactivate()
     @elements.off 'input'

@@ -2,7 +2,7 @@ buildFields = (element) ->
   $element = $(element)
   $ul = $('<ul/>')
   tsFields = $element.data('tsFields')
-  tsNewUrl = $element.data('tsNewUrl')
+  tsNewUrl = $element.data('tsUrl')
   tsParentId = $element.data('tsParentId')
 
   for field in tsFields
@@ -11,7 +11,7 @@ buildFields = (element) ->
 
     $input
       .attr({type: "text", name: "text", placeholder: field})
-      .data({'ts-field': field, 'ts-new-url': tsNewUrl})
+      .data({'ts-field': field, 'ts-url': tsNewUrl})
       .on 'change', (e) ->
         $(@).parent().parent().data($(@).data('ts-field'), $(@).val())
       .appendTo($li)
@@ -24,7 +24,7 @@ buildFields = (element) ->
     .html('<i class="ion-ios-checkmark-outline"></i>')
     .addClass('ts-button')
     .addClass('ts-button-primary')
-    .data({'ts-field': field, 'ts-new-url': tsNewUrl, 'ts-parent-id': tsParentId})
+    .data({'ts-field': field, 'ts-url': tsNewUrl, 'ts-parent-id': tsParentId})
     .on 'click', ->
       data = {}
       data[$(@).data('ts-field')] = $(@).parent().parent().data($(@).data('ts-field'))
@@ -32,7 +32,7 @@ buildFields = (element) ->
       console.log data
       $.ajax
         type: "POST"
-        url: $(@).data('ts-new-url')
+        url: $(@).data('ts-url')
         dataType: 'json'
         contentType: 'application/json'
         data: JSON.stringify(data)
@@ -56,7 +56,7 @@ setUpDrops = (elements)->
 
   drops
 
-class window.TS.NewModel
+class window.TS.NewPage
   constructor: (@elements) ->
     @drops = []
 
