@@ -15,6 +15,7 @@
  *= require drop-theme-arrows-bounce-dark
  *= require vex
  *= require vex-theme-os
+ *= require ionicons
  *= require_tree .
  *= require_self
  */

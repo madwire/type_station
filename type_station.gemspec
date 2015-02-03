@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cloudinary', '~> 1.0', ">= 1.0.81"
   s.add_dependency "coffee-rails", '~> 4.1', ">= 4.1.0"
   s.add_dependency "haml-rails", '~> 0.0', ">= 0.7.0"
+  s.add_dependency 'ionicons-rails', '~> 2.0'
 
   s.add_development_dependency "rspec", '~> 3.1'
   s.add_development_dependency 'rspec-rails', '~> 3.0', '>= 3.0'

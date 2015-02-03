@@ -26,7 +26,7 @@ $admin-bar-icon-size: 26.5pt;
   position: fixed;
   z-index: 1000;
   background: #fff;
-  bottom: -115px;
+  bottom: -100px;
   left: 0px;
   right: 0px;
   padding: 0px;
@@ -80,7 +80,7 @@ $admin-bar-icon-size: 26.5pt;
           width: 30%;
           line-height: 1.5em;
           i {
-            font-size: $admin-bar-icon-size;
+            font-size: 31pt; // $admin-bar-icon-size;
           }
         }
 
@@ -95,11 +95,11 @@ $admin-bar-icon-size: 26.5pt;
 
 #insert-content {
   background: rgba(27, 33, 36, 0.67);
-  height: 115px;
+  height: 100px;
   ul li.insert-new { 
     cursor: pointer; 
     margin: 5px 0 0 5px;
-    width: 1.5em;
+    width: 1.4em;
     display: inline-block;
     text-align: center;
     font-size: 40pt;
@@ -107,8 +107,8 @@ $admin-bar-icon-size: 26.5pt;
     .insert-icon {
       background-color: rgba(255,255,255,0.2);
       color: #555;
-      width: 1.5em;
-      height: 1.5em;
+      width: 1.35em;
+      height: 1.3em;
       font-size: 1em;
     }
     .insert-name {

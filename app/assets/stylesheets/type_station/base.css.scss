@@ -50,13 +50,13 @@ $secondary-border-color: #357ebd;
   left: 0px;
   z-index: 10;
   display: none;
-  font-size: 20pt;
+  font-size: 17pt;
   box-sizing: content-box;
   line-height: 1;
   background: rgba(27,33,36,0.67);
   color: #fff;
-  width: 1.4em;
-  height: 1.3em;
+  width: 1.2em;
+  height: 1.2em;
   text-align: center;
   cursor: pointer;
   i { vertical-align: middle; }
@@ -84,6 +84,7 @@ body.ts-edit-mode {
 }
 .medium-toolbar-arrow-under:after {
   border-color: $primary-color transparent transparent transparent;
+  border: none;
 }
 .drop-element.drop-theme-arrows-bounce-dark { z-index: 1001; }
 .drop-element.drop-theme-arrows-bounce-dark .drop-content {
@@ -106,8 +107,8 @@ body.ts-edit-mode {
         padding-right: 10px;
       }
       input { 
-        height: 2.25em;
-        font-size: 1em;
+        height: 2.5em;
+        font-size: 13.5pt;
         padding: 5px;
         border: 1px solid $primary-border-color;
         color: #444;
@@ -115,7 +116,7 @@ body.ts-edit-mode {
       }
       button { 
         width: 1.8em;
-        height: 1.5em;
+        height: 1.7em;
         font-size: 1.5em;
       }
     }
@@ -123,9 +124,11 @@ body.ts-edit-mode {
 }
 .drop-element.drop-theme-arrows-bounce-dark.drop-element-attached-top.drop-element-attached-left.drop-target-attached-bottom .drop-content:before {
   border-bottom-color: #fff; //$primary-color;
+  border: none;
 }
 .drop-element.drop-theme-arrows-bounce-dark.drop-element-attached-bottom.drop-element-attached-center .drop-content:before {
   border-top-color: #fff; ///$primary-color;
+  border: none;
 }
 
 
