@@ -11,10 +11,11 @@
  * file per style scope.
  *
  *= require medium-editor/medium-editor
- *= require medium-editor/themes/flat
+ *= require medium-editor/themes/bootstrap
  *= require drop-theme-arrows-bounce-dark
  *= require vex
  *= require vex-theme-os
+ *= require ionicons
  *= require_tree .
  *= require_self
  */

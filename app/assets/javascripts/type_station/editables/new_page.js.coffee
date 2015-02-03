@@ -1,27 +1,29 @@
 buildFields = (element) ->
   $element = $(element)
-  $ul = $('<ul/>')
+  $ul = $('<ul/>').addClass("ts-model-fields")
   tsFields = $element.data('tsFields')
   tsNewUrl = $element.data('tsUrl')
   tsParentId = $element.data('tsParentId')
+
+  liClass = if tsFields.length == 1 then 'ts-inline-field' else ''
 
   for field in tsFields
     $li = $('<li/>')
     $input = $('<input/>')
 
     $input
-      .attr({type: "text", name: "text", placeholder: field})
+      .attr({type: "text", name: "text", placeholder: window.titleize field})
       .data({'ts-field': field, 'ts-url': tsNewUrl})
       .on 'change', (e) ->
         $(@).parent().parent().data($(@).data('ts-field'), $(@).val())
       .appendTo($li)
 
-    $li.appendTo($ul)
+    $li.addClass(liClass).appendTo($ul)
 
-  $li = $('<li/>')
+  $li = $('<li/>').addClass(liClass)
   $button = $('<button/>')
   $button
-    .html('<i class="ion-ios-checkmark-outline"></i>')
+    .html('<i class="ion-android-add"></i>')
     .addClass('ts-button')
     .addClass('ts-button-primary')
     .data({'ts-field': field, 'ts-url': tsNewUrl, 'ts-parent-id': tsParentId})
@@ -48,7 +50,7 @@ setUpDrops = (elements)->
     drop = new Drop
       target: $(element)[0]
       content: buildFields(element)[0]
-      position: 'bottom center'
+      position: 'bottom left'
       openOn: 'click'
       classes: 'drop-theme-arrows-bounce-dark'
     $(element).data('drop', drop)
