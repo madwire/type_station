@@ -2,6 +2,7 @@ require 'mongoid'
 require 'mongoid/tree'
 require 'jquery-fileupload-rails'
 require 'cloudinary'
+require 'ionicons-rails'
 
 module TypeStation
   class Engine < ::Rails::Engine

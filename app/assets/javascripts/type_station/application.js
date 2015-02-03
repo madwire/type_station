@@ -17,6 +17,7 @@
 //= require vex.combined.min
 //= require type_station/lib/ts
 //= require type_station/lib/models
+//= require type_station/lib/helpers
 //= require_tree ./editables
 //= require type_station/init
 //= require_self
