@@ -32,7 +32,7 @@ module TypeStation
       end
 
       def tag_class
-        options[:class] || ['ts', self.class.to_s.demodulize.underscore.dasherize].join('-')
+        [['ts', self.class.to_s.demodulize.underscore.dasherize].join('-'), options[:class]].compact
       end
 
       def tag_ts_data
