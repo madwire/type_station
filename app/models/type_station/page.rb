@@ -49,7 +49,11 @@ module TypeStation
         if content?(data[:field])
           set(data[:field], data[:value])
         else
-          contents.build(name: data[:field], type: data[:type]).set(data[:value])
+          if self[data[:field]].present?
+            self[data[:field]] = data[:value]
+          else
+            contents.build(name: data[:field], type: data[:type]).set(data[:value])
+          end
         end
       end
 
