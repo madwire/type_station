@@ -12,6 +12,10 @@ module TypeStation
       h.type_station.admin_page_url(page)
     end
 
+    def new_url
+      h.type_station.admin_pages_url
+    end
+
     def children
       @children ||= page.children.map {|p| PagePresenter.new(p, @template)}
     end
