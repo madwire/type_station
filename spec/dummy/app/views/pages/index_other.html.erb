@@ -53,6 +53,13 @@
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <%- end %>
 
+<%- @page.children.each do |page| %>
+  <%= ts_editable page, :image_one, type: :image do |image| %>
+    <%= ts_image_tag(image.identifier || 'http://lorempixel.com/100/100/', width: 100, height: 100, class: 'test', crop: :fit) %>
+  <%- end %>
+<%- end %>
+
+
 
 <%= ts_editable @page, :body_two, type: :html do %>
   <h4>Test</h4>
