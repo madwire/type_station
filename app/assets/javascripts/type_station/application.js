@@ -12,6 +12,7 @@
 //
 //= require jquery-fileupload/basic
 //= require jquery.cloudinary
+//= require classList
 //= require medium-editor
 //= require drop
 //= require vex.combined.min
