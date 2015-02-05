@@ -13,6 +13,7 @@ module TypeStation
           result << stylesheet_link_tag("type_station/application", media: "all")
           result << javascript_include_tag("type_station/application") 
           result << cloudinary_js_config     
+          result << content_tag(:script, "window.TS.ADMIN_PAGES_URL = '#{type_station.admin_pages_url}';".html_safe, type: 'text/javascript')
         end
         result
       end

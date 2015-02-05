@@ -2,6 +2,14 @@ module TypeStation
   module Admin
     class PagesController < ::TypeStation::AdminController
 
+      def index
+        @pages = TypeStation::Page.all
+        @pages = @pages.where(title: /^#{params[:title]}/i) if params[:title]
+        @pages = @pages.where(path: /^#{params[:path]}/i) if params[:path]
+
+        render json: { status: :success, pages: @pages }, status: :ok
+      end
+
       def create
         @page = TypeStation::Page.new(title: params[:title])
 
