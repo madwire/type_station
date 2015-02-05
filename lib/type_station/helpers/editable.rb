@@ -24,7 +24,11 @@ module TypeStation
           klass ||= "TypeStation::Blocks::Editable#{options[:type].to_s.classify}".constantize
           klass.new(model, key, options).render(content)
         else
-          content
+          if options[:stick].present?
+            TypeStation::Blocks::Stickable.new(model, key, options).render(content)
+          else
+            content
+          end
         end
       end
 
