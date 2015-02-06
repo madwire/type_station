@@ -9,6 +9,19 @@ class window.TS.Store
       callback?(key, value)
 
 class window.TS.Model extends window.TS.Store
+
+  constructor: (@id = null) ->
+    super
+    @DIRTY = {}
+
+  set: (key, value) ->
+    super key, value
+    @DIRTY[key] = 1
+
+
+  changedKeys: -> Object.keys(@DIRTY)
+  isChanged: -> @changedKeys().length > 0
+
   save: (callback = ->) ->
     self = @
     data = []
