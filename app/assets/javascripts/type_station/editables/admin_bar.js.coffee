@@ -2,6 +2,7 @@ class window.TS.AdminBar
   constructor: (@element) ->
     template = @element.html()
     $('body').append(template)
+    vex.defaultOptions.className = 'vex-theme-os'
 
     $('#ts-admin-bar-edit').on 'click', ->
       window.TS.enable()
@@ -12,14 +13,18 @@ class window.TS.AdminBar
       false
     
     $('#ts-admin-bar-save').on 'click', ->
-      window.TS.save()
+      vex.dialog.confirm
+        message: 'Are you sure you want to save changes?'
+        callback: (value) ->
+          if value
+            window.TS.save()
 
     $('#ts-admin-bar input').on 'change', ->
       model = window.TS.getModel $(@).data('ts-url')
       model.set($(@).data('ts-key'), { field: $(@).data('ts-key'), value: $(@).val(), type: 'text' })
 
-    $('.ts-brand').on 'click', ->
-      $("#ts-admin-bar").toggleClass 'insert-open'
+    # $('.ts-brand').on 'click', ->
+    #   $("#ts-admin-bar").toggleClass 'insert-open'
 
     drop = new Drop
       target: $('#ts-admin-bar .ts-options i')[0]
