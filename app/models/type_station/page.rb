@@ -14,6 +14,7 @@ module TypeStation
     field :template_name, type: String, default: 'undefined'
 
     field :redirect_to, type: String, default: nil
+    field :hidden, type: Boolean, default: false
 
     field :slug, type: String
     field :path, type: String
