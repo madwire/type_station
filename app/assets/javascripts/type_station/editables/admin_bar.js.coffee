@@ -33,6 +33,54 @@ class window.TS.AdminBar
       openOn: 'click'
       classes: 'drop-theme-arrows-bounce-dark'
 
+    drop.on 'open', ->
+      $('#ts-page-settings').off 'click'
+      $('#ts-page-settings').on 'click', ->
+        vex.dialog.buttons.YES.text = 'Save'
+        vex.dialog.open 
+          message: 'Manage page settings'
+          input: """
+            <style>
+                .vex-custom-field-wrapper {
+                  margin: 1em 0;
+                }
+                .vex-custom-field-wrapper > label {
+                  display: inline-block;
+                  margin-bottom: .2em;
+                }
+                .vex-custom-input-wrapper > select {
+                  -webkit-border-radius: 3px;
+                  -moz-border-radius: 3px;
+                  -ms-border-radius: 3px;
+                  -o-border-radius: 3px;
+                  border-radius: 3px;
+                  background: white;
+                  width: 100%;
+                  height: 40px;
+                  padding: 0.25em 0.67em;
+                  border: 0;
+                  font-family: inherit;
+                  font-weight: inherit;
+                  font-size: inherit;
+                  min-height: 2.5em;
+                  margin: 0 0 0.25em;
+                }
+            </style>
+            #{$('#ts-admin-bar-settings').html()}
+          """
+          callback: (data) ->
+            if data
+              model = window.TS.getModel $('#ts-admin-bar-settings').data('ts-url')
+              vex.dialog.confirm
+                message: 'Are you sure you want to save changes?'
+                callback: (value) ->
+                  if value
+                    for k,v of data
+                      model.set(k, { field: k, value: v, type: 'text' })
+                    window.TS.save()
+                    model.save ->
+                      window.location.reload()
+
   enable: ->
     $('body').addClass('ts-edit-mode');
     $('#ts-admin-bar').removeClass('ts-hidden')

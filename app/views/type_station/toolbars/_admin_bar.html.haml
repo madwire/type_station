@@ -103,4 +103,18 @@
           .large-text
             Settings
           .sub-text
-            Manage global site settings
+            Manage page settings
+
+#ts-admin-bar-settings{data: {ts_url: model.edit_url}}
+  - if options[:show_name].present?
+    .vex-custom-field-wrapper
+      %label{for: "name"} Name
+      .vex-custom-input-wrapper
+        = text_field_tag 'name', model.try(:name)
+  - if options[:templates].present?
+    .vex-custom-field-wrapper
+      %label{for: "template_name"} Template
+      .vex-custom-input-wrapper
+        = select_tag "template_name", options_for_select(options[:templates].map {|(k,v)| [v,k.to_s]}, model.try(:template_name))
+
+
