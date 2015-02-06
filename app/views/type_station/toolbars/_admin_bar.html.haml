@@ -5,8 +5,8 @@
 #ts-admin-bar.ts-hidden
   %ul
     %li.ts-brand
-      %i.ion-ios-book
-      %i.ion-android-add.smaller
+      %i.ion-ios-barcode-outline
+      -# %i.ion-android-add.smaller
     %li.ts-title
       = text_field_tag 'page_title', model.try(:title), data: {ts_id: model.to_param, ts_url: model.edit_url, ts_key: :title, ts_data: {}}
     %li.ts-actions
@@ -59,7 +59,7 @@
 
 #ts-admin-bar-options
   %ul
-    %li
+    -#%li
       = link_to "#" do
         %span.icon
           %i.ion-ios-paper-outline
@@ -68,7 +68,7 @@
             New page
           .sub-text
             Create a new root page
-    %li
+    -#%li
       = link_to "#" do
         %span.icon
           %i.ion-ios-photos-outline
@@ -77,7 +77,7 @@
             New sub page
           .sub-text
             Create a new sub page
-    %li
+    -#%li
       = link_to "#" do
         %span.icon
           %i.ion-ios-trash-outline
@@ -86,7 +86,7 @@
             Delete page
           .sub-text
             Permantely delete this page
-    %li
+    -#%li
       = link_to "#" do
         %span.icon
           %i.ion-ios-shuffle
@@ -95,7 +95,7 @@
             Change structure
           .sub-text
             Reorder the site's pages
-    %li
+    %li#ts-page-settings
       = link_to "#" do
         %span.icon
           %i.ion-ios-settings
