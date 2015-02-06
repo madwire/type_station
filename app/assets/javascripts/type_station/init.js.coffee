@@ -1,14 +1,14 @@
 window.TS.models = new window.TS.Store
 window.TS.editors = new window.TS.Store
 
-window.TS.onSave = -> null
-window.TS.onSaved = -> null
+window.TS.onSave = -> null unless window.TS['onSave']
+window.TS.onSaved = -> null unless window.TS['onSaved']
 
-window.TS.onEnable = -> null
-window.TS.onEnabled = -> null
+window.TS.onEnable = -> null unless window.TS['onEnable']
+window.TS.onEnabled = -> null unless window.TS['onEnabled']
 
-window.TS.onDisable = -> null
-window.TS.onDisabled = -> null
+window.TS.onDisable = -> null unless window.TS['onDisable']
+window.TS.onDisabled = -> null unless window.TS['onDisabled']
 
 window.TS.getModel = (url) ->
   model = @models.get url
