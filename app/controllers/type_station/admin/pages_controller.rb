@@ -4,8 +4,8 @@ module TypeStation
 
       def index
         @pages = TypeStation::Page.all
-        @pages = @pages.where(title: /^#{params[:title]}/i) if params[:title]
-        @pages = @pages.where(path: /^#{params[:path]}/i) if params[:path]
+        @pages = @pages.where(title: /#{params[:title]}/i) if params[:title]
+        @pages = @pages.where(path: /#{params[:path]}/i) if params[:path]
 
         render json: { status: :success, pages: @pages }, status: :ok
       end
