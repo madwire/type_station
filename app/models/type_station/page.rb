@@ -2,6 +2,7 @@ module TypeStation
   class Page
     include ::Mongoid::Document
     include ::Mongoid::Tree
+    include ::Mongoid::Tree::Ordering
 
     # RELATIONS
 
