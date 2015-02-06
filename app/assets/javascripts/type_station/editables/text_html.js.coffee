@@ -1,7 +1,16 @@
+hasFontAwesome = false
 updateGlobalValue = ($el, value) ->
   match = "[data-ts-key=#{$el.data('ts-key')}][data-ts-id=#{$el.data('ts-id')}]"
   $("input#{match}").not($el).val(value)
   $("#{match}").not(':input').not($el).html(value)
+
+haveFontAwesome = ->
+  unless hasFontAwesome
+    for k, stylesheet of document.styleSheets
+      if stylesheet?.href?.match(/font-awesome/g)
+        hasFontAwesome = true
+        break
+  hasFontAwesome
 
 class window.TS.EditableText
   constructor: (@elements) ->
@@ -35,6 +44,7 @@ class window.TS.EditableHtml
     @editor = new MediumEditor @elements,
       #buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'unorderedlist', 'orderedlist', 'justifyLeft', 'justifyFull', 'justifyCenter', 'justifyRight']
       buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'unorderedlist', 'orderedlist']
+      buttonLabels: (if haveFontAwesome() then 'fontawesome' else null)
       anchorInputPlaceholder: 'Type a link'
       # anchorInputCheckboxLabel: true
       # checkLinkFormat: true
