@@ -89,8 +89,8 @@ body.ts-edit-mode {
 }
 .drop-element.drop-theme-arrows-bounce-dark { z-index: 1001; }
 .drop-element.drop-theme-arrows-bounce-dark .drop-content {
-  background: $primary-color;
-  border: 1px solid $primary-border-color;
+  background: darken($primary-color, 1%);
+  border: 1px solid lighten($primary-border-color, 1%);
   border-radius: 4px;
   padding: 0.5em 0;
   ul.ts-model-fields {
@@ -124,12 +124,16 @@ body.ts-edit-mode {
   }
 }
 .drop-element.drop-theme-arrows-bounce-dark.drop-element-attached-top.drop-element-attached-left.drop-target-attached-bottom .drop-content:before {
-  border-bottom-color: #fff; //$primary-color;
-  border: none;
+  border-bottom-color: lighten($primary-border-color, 1%); //$primary-color;
+  // border: none;
 }
 .drop-element.drop-theme-arrows-bounce-dark.drop-element-attached-bottom.drop-element-attached-center .drop-content:before {
-  border-top-color: #fff; ///$primary-color;
-  border: none;
+  border-top-color: lighten($primary-border-color, 1%); ///$primary-color;
+  // border: none;
+}
+.drop-element.drop-theme-arrows-bounce-dark.drop-element-attached-bottom.drop-element-attached-left.drop-target-attached-top .drop-content:before {
+  border-top-color: lighten($primary-border-color, 1%); ///$primary-color;
+  // border: none;
 }
 
 
@@ -140,7 +144,7 @@ body.ts-edit-mode {
   border: 1px solid $secondary-border-color;
   background-color: $secondary-color;
   color: $primary-color;
-  margin: 8px 25px;
+  margin: 8px 15px;
   padding: 4px 15px;
   cursor: pointer;
   transition: background-color .5s;

@@ -40,7 +40,7 @@ setUpDrops = (elements)->
     drop = new Drop
       target: $('.ts-editable-button', element)[0]
       content: buildUploader(element, tsData)[0]
-      position: 'bottom left'
+      position: 'top left'
       openOn: 'click'
       classes: 'drop-theme-arrows-bounce-dark'
     $(element).data('drop', drop)
