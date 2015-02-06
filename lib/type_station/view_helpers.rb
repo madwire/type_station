@@ -77,8 +77,8 @@ module TypeStation
     #   content_tag(:a, nil, html_options.merge({class: ['ts-editable-link-tag', css_class], href: cloudinary_url(identifier)}), &block)
     # end
 
-    def type_station_admin_toolbar(model)
-      type_station_toolbar('ts-admin-bar', model, 'admin_bar')
+    def ts_admin_toolbar(model, options = {})
+      type_station_toolbar('ts-admin-bar', model, 'admin_bar', options)
     end
 
     # def type_station_init
@@ -96,8 +96,8 @@ module TypeStation
       instance_eval &TypeStation.config.current_user
     end
 
-    def type_station_toolbar(id, model, partial_name)
-      type_station_template([id, 'template'].join('-'), render(partial: "type_station/toolbars/#{partial_name}", locals: {model: model}).html_safe)
+    def type_station_toolbar(id, model, partial_name, options = {})
+      type_station_template([id, 'template'].join('-'), render(partial: "type_station/toolbars/#{partial_name}", locals: {model: model, options: options}).html_safe)
     end
 
     def type_station_template(id, content, type = 'text/x-type-station-template')
