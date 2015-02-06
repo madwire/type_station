@@ -18,11 +18,13 @@ window.TS.getModel = (url) ->
   model
 
 window.TS.enable = ->
+  window.location.hash = '#!ts-edit-enable'
   @onEnable()
   @editors.each (id, editor) -> editor.enable()
   @onEnabled()
 
 window.TS.disable = ->
+  window.location.hash = '#!ts-edit-disable'
   @onDisable()
   @editors.each (id, editor) -> editor.disable()
   @onDisabled()
@@ -40,3 +42,6 @@ window.TS.init = ->
   @editors.set 'ts-editable-file', new window.TS.EditableFile $('.ts-editable-file')
   @editors.set 'ts-new-page', new window.TS.NewPage $('.ts-new-page')
   @editors.set 'ts-link-finder', new window.TS.LinkFinder null
+
+  if window.location.hash.replace(/^#!/, '') == 'ts-edit-enable'
+    window.TS.enable()

@@ -4,14 +4,12 @@ class window.TS.AdminBar
     $('body').append(template)
 
     $('#ts-admin-bar-edit').on 'click', ->
-      $('#ts-admin-bar').removeClass('ts-hidden')
-      $('#ts-admin-bar-edit').addClass('ts-hidden')
       window.TS.enable()
+      false
 
     $('#ts-admin-bar-cancel').on 'click', ->
-      $('#ts-admin-bar').addClass('ts-hidden').removeClass 'insert-open'
-      $('#ts-admin-bar-edit').removeClass('ts-hidden')
       window.TS.disable()
+      false
     
     $('#ts-admin-bar-save').on 'click', ->
       window.TS.save()
@@ -32,6 +30,10 @@ class window.TS.AdminBar
 
   enable: ->
     $('body').addClass('ts-edit-mode');
+    $('#ts-admin-bar').removeClass('ts-hidden')
+    $('#ts-admin-bar-edit').addClass('ts-hidden')
 
   disable: ->
     $('body').removeClass('ts-edit-mode');
+    $('#ts-admin-bar').addClass('ts-hidden').removeClass 'insert-open'
+    $('#ts-admin-bar-edit').removeClass('ts-hidden')
