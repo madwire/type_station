@@ -27,7 +27,7 @@ module TypeStation
           if options[:stick].present?
             TypeStation::Blocks::Stickable.new(model, key, options).render(content)
           else
-            content
+            content.html_safe
           end
         end
       end
