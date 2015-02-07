@@ -18,6 +18,7 @@ class window.TS.AdminBar
         callback: (value) ->
           if value
             window.TS.save()
+      false
 
     $('#ts-admin-bar input').on 'change', ->
       model = window.TS.getModel $(@).data('ts-url')
