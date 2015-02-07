@@ -4,17 +4,19 @@ module TypeStation
     include ::Mongoid::Tree
     include ::Mongoid::Tree::Ordering
 
+    TYPES = [:hidden, :draft, :published]
+
     # RELATIONS
 
     embeds_many :contents, class_name: 'TypeStation::Content'
 
     # FIELDS
-    field :name, type: Symbol
+    field :name, type: Symbol, default: :unnamed
     field :title, type: String, default: 'Untitled'
     field :template_name, type: String, default: 'undefined'
 
     field :redirect_to, type: String, default: nil
-    field :hidden, type: Boolean, default: false
+    field :type, type: Symbol, default: TYPES.last # always published unless stated
 
     field :slug, type: String
     field :path, type: String
@@ -89,6 +91,14 @@ module TypeStation
 
     def template_name?
       template_name.present? && template_name != 'undefined'
+    end
+
+    def visible?(user)
+      if user.present?
+        [:draft, :published].include?(type)
+      else
+        type == :published
+      end
     end
 
     private

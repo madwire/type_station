@@ -15,7 +15,7 @@ module TypeStation
     private
 
     def render_type_station
-      if @page.present?
+      if @page.present? && @page.visible?(type_station_current_user)
         if @page.redirect?
           redirect_to @page.redirect_to
         else

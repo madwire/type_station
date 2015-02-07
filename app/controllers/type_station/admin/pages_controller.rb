@@ -3,7 +3,7 @@ module TypeStation
     class PagesController < ::TypeStation::AdminController
 
       def index
-        @pages = TypeStation::Page.where(hidden: false)
+        @pages = TypeStation::Page.in(type: [:draft, :published])
         @pages = @pages.where(title: /#{params[:title]}/i) if params[:title]
         @pages = @pages.where(path: /#{params[:path]}/i) if params[:path]
 
