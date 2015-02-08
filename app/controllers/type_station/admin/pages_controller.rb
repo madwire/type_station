@@ -18,7 +18,7 @@ module TypeStation
           @page.parent = parent_page
         end
 
-        if @page.save
+        if @page.update_contents(contents)
           render json: { status: :success, url: @page.path }, status: :ok
         else
           render json: @page.errors, status: :unprocessable_entity
