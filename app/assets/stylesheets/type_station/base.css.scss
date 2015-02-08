@@ -76,6 +76,31 @@ body.ts-edit-mode {
   .ts-editable-button { display: block; }
 }
 
+.vex-custom-field-wrapper {
+  margin: 1em 0;
+}
+.vex-custom-field-wrapper > label {
+  display: inline-block;
+  margin-bottom: .2em;
+}
+.vex-custom-input-wrapper > select {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  background: white;
+  width: 100%;
+  height: 40px;
+  padding: 0.25em 0.67em;
+  border: 0;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  min-height: 2.5em;
+  margin: 0 0 0.25em;
+}
+
 
 .medium-editor-toolbar {
   background: $primary-color;
