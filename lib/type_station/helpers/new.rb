@@ -16,7 +16,7 @@ module TypeStation
           klass ||= "TypeStation::Blocks::New#{options[:type].to_s.classify}".constantize
           klass.new(model, key, options).render(content)
         else
-          content
+          nil #dont show anything
         end      
       end
 
