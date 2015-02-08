@@ -38,8 +38,9 @@ module TypeStation
         template_name = options[:template] || (parent ? title.parameterize('_') : 'index')
         redirect_to = options[:redirect_to]
         slug = options[:slug]
-        
-        model = ::TypeStation::Page.create(title: title, name: name, template_name: template_name, redirect_to: redirect_to, parent_id: parent_id)
+        type = options[:type] || ::TypeStation::Page::TYPES.last
+
+        model = ::TypeStation::Page.create(title: title, name: name, template_name: template_name, type: type, redirect_to: redirect_to, parent_id: parent_id)
         
         if slug.present?
           model.slug = slug 
