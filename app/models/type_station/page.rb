@@ -58,7 +58,7 @@ module TypeStation
         if content?(data[:field])
           set(data[:field], data[:value])
         else
-          if self[data[:field]].present?
+          if self[data[:field]].present? && !changed.include?(data[:field].to_sym) #and not changed already
             self[data[:field]] = data[:value]
           else
             contents.build(name: data[:field], type: data[:type]).set(data[:value])
