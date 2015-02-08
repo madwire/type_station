@@ -71,6 +71,25 @@
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <%- end %>
 
+<%= ts_new :page, @page, content_tag: :div, fields: [{name: :title, type: 'text', label: 'Section name'}, {name: :template_name, type: 'select', label: 'Section template', options: [['Cool', 'v'], ['Blah', 'b']]}, {name: :test_value, type: 'text', label: 'test value'}, {name: :another_test, type: 'textarea', label: 'Blah'}], data: {name: 'Section', default: {type: :hidden, name: :section}} do %>
+  <h1>New Section</h1>
+<%- end %>
+
+<ul>
+<%- ts_pages(:section, @page).each do |page| %>
+  <li><%= page.title %> - <%= page.test_value.value %> - <%= page.template_name %> - <%= page.another_test.value %></li>
+<%- end %>
+</ul>
+
+<%= ts_new :page, @page, content_tag: :div, fields: [{name: :title, type: 'text', label: 'Team name'}], data: {name: 'Team member', default: {type: :hidden, name: :team}} do %>
+  <h1>New team member</h1>
+<%- end %>
+
+<ul>
+<%- ts_pages(:team, @page).each do |page| %>
+  <li><%= page.title %></li>
+<%- end %>
+</ul>
 
 <%= ts_editable @page, :image_one, type: :image do |image| %>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -106,27 +125,6 @@
 
   <%- end %>
 <%- end %>
-
-
-<ul>
-  <%= ts_new :collection, :gallery_name, content_tag: :li do %>
-    + Add
-  <% end %>
-  <%= ts_collection @page, :gallery_name, content_tag: :li do %>
-    <div class="image">
-      <%= ts_editable @page, :image, type: :image do |image| %>
-        <%= ts_image_tag(image.identifier, width: 200, height: 200, class: 'test', crop: :fill) %>
-      <% end %>
-    </div>
-    <div class="caption">
-      <%= ts_editable @page, :caption do %>
-        Default Caption
-      <% end %>
-    </div>
-  <% end %>
-</ul>
-
-
 
 <%= ts_editable @page, :file, type: :file do |file| %>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

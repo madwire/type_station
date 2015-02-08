@@ -1,74 +1,71 @@
 buildFields = (element) ->
-  $element = $(element)
-  $ul = $('<ul/>').addClass("ts-model-fields")
-  tsFields = $element.data('tsFields')
-  tsNewUrl = $element.data('tsUrl')
-  tsParentId = $element.data('tsParentId')
-
-  liClass = if tsFields.length == 1 then 'ts-inline-field' else ''
-
+  tsFields = element.data('tsFields')
+  inputs = ''
+  
   for field in tsFields
-    $li = $('<li/>')
-    $input = $('<input/>')
+    label = "<label for='#{field.name}'>#{field.label}</label>"
+    input = switch field.type
+      when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' />"
+      when "textarea" then "<textarea name='#{field.name}' id='#{field.name}' rows='5
+      '></textarea>"
+      when "select"
+        select = "<select name='#{field.name}' id='#{field.name}'>"
+        for o in field.options
+          select += "<option value='#{o[1]}'>#{o[0]}</option>"
+        select += "</select>"
+        select 
+    inputs += "<div class'vex-custom-field-wrapper'>#{label}<div class='vex-custom-input-wrapper'>#{input}</div></div>"
 
-    $input
-      .attr({type: "text", name: "text", placeholder: window.titleize field})
-      .data({'ts-field': field, 'ts-url': tsNewUrl})
-      .on 'change', (e) ->
-        $(@).parent().parent().data($(@).data('ts-field'), $(@).val())
-      .appendTo($li)
-
-    $li.addClass(liClass).appendTo($ul)
-
-  $li = $('<li/>').addClass(liClass)
-  $button = $('<button/>')
-  $button
-    .html('<i class="ion-android-add"></i>')
-    .addClass('ts-button')
-    .addClass('ts-button-primary')
-    .data({'ts-field': field, 'ts-url': tsNewUrl, 'ts-parent-id': tsParentId})
-    .on 'click', ->
-      data = {}
-      data[$(@).data('ts-field')] = $(@).parent().parent().data($(@).data('ts-field'))
-      data['parent_id'] = $(@).data('ts-parent-id') if $(@).data('ts-parent-id') 
-      console.log data
-      $.ajax
-        type: "POST"
-        url: $(@).data('ts-url')
-        dataType: 'json'
-        contentType: 'application/json'
-        data: JSON.stringify(data)
-        success: (data, status) -> window.location.reload()
-    .appendTo($li)
-  $li.appendTo($ul)
-
-  $ul
-
-setUpDrops = (elements)->
-  drops = []
-  for element in elements
-    drop = new Drop
-      target: $(element)[0]
-      content: buildFields(element)[0]
-      position: 'bottom left'
-      openOn: 'click'
-      classes: 'drop-theme-arrows-bounce-dark'
-    $(element).data('drop', drop)
-    drops.push drop
-
-  drops
+  inputs
 
 class window.TS.NewPage
   constructor: (@elements) ->
-    @drops = []
 
   enable: ->
     @disable()
-    @drops = setUpDrops(@elements)
+    @elements.show().on 'click', ->
+      $element = $(@)
+      tsData = $element.data('tsData')
+      vex.dialog.buttons.YES.text = 'Create'
+      vex.dialog.open 
+        message: "New #{tsData.name || 'Page'}"
+        input: buildFields($element)
+        $element: $element
+        callback: (data) ->
+          console.log data
+          if data
+            $el = @$element
+            if data.title.length > 0 #must have a title
+              model = window.TS.getModel $el.data('ts-url')
+              data = $.extend({}, data, $el.data('tsData').default) if $el.data('tsData').default
+              
+              contents = []
+              for k,v of data
+                if k != 'title'
+                  contents.push({ field: k, value: v, type: 'text' })
+
+              json = {}
+              json['title'] = data.title
+              json['parent_id'] = $el.data('ts-parent-id') if $el.data('ts-parent-id') 
+              json['contents'] = contents
+
+              vex.dialog.confirm
+                message: 'Are you sure you want to create this?'
+                callback: (value) ->
+                  if value
+                    $.ajax
+                      type: "POST"
+                      url: $el.data('ts-url')
+                      dataType: 'json'
+                      contentType: 'application/json'
+                      data: JSON.stringify(json)
+                      success: (data, status) -> window.location.reload()
+            else
+              vex.dialog.alert
+                message: 'Please fill in all required fields'
+                callback: ->
+                  $el.click()
+
 
   disable: ->
-    for drop in @drops
-      drop.close()
-      drop.remove()
-      drop.destroy()
-    @drops = []
+    @elements.hide().off 'click'

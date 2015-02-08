@@ -7,7 +7,7 @@ module TypeStation
       private
 
       def tag_data
-        super.merge({ts_parent_id: model.to_param, ts_fields: (options[:fields] || ['title'])})
+        super.merge({ts_parent_id: model.to_param, ts_fields: (options[:fields] || [{name: :title, type: 'text', label: 'Page Title'}])})
       end
 
       def tag_ts_url

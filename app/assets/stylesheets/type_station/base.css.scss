@@ -163,6 +163,10 @@ body.ts-edit-mode {
   // border: none;
 }
 
+.ts-new-page {
+  cursor: pointer;
+  display: none;
+}
 
 .ts-file-style {
   font-family: Tahoma, Geneva, sans-serif;
