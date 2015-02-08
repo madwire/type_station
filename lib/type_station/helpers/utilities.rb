@@ -6,6 +6,13 @@ module TypeStation
         PagePresenter.new(TypeStation::Page.find_by_name(name), self)
       end
 
+      def ts_pages(name, parent = nil)
+        context = self
+        criteria = TypeStation::Page.where(name: name)
+        criteria = criteria.where(parent_id: parent.to_param) if parent
+        criteria.map {|p| PagePresenter.new(p, context) }
+      end
+
       def ts_init
         result = ''.html_safe
         if type_station_current_user
