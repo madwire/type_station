@@ -31,5 +31,6 @@ module TypeStation
     config.current_user = Proc.new do
       request.env["warden"].try(:user) || respond_to?(:current_user) && current_user
     end 
+    config.moveable_ancestor_level = 1
   end
 end

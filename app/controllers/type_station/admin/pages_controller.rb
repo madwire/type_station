@@ -35,6 +35,25 @@ module TypeStation
         end
       end
 
+      def move
+        response = {success: false, message: ''}
+        page = TypeStation::Page.find(params[:id])
+
+        if page && params[:direction] && ['up', 'down'].include?(params[:direction])
+          if page.method("move_#{params[:direction]}").call
+            response[:success] = true
+          else
+            response[:message] = 'Failed to move page'
+          end
+        else
+          resposne[:message] = 'Invalid parameters'
+        end
+        respond_to do |format|
+          format.html { render text: response.inspect }
+          format.json { render json: response }
+        end
+      end
+
       private
 
       def contents
