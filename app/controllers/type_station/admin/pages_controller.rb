@@ -42,6 +42,7 @@ module TypeStation
         if page && params[:direction] && ['up', 'down'].include?(params[:direction])
           if page.method("move_#{params[:direction]}").call
             response[:success] = true
+            response[:message] = params[:direction]
           else
             response[:message] = 'Failed to move page'
           end

@@ -192,6 +192,9 @@ body.ts-edit-mode {
   &:hover { background-color: $secondary-border-color; }
 }
 
+.ts-moveable .ts-move.ts-move-left { position: absolute; left: 0; top: 0; }
+.ts-moveable .ts-move.ts-move-right { position: absolute; right: 0; top: 0; }
+
 /* Hack for ionicicons v2 (no animation code) */
 .ion-spin-animation { -webkit-animation: spin 1s infinite linear; -moz-animation: spin 1s infinite linear; -o-animation: spin 1s infinite linear; animation: spin 1s infinite linear; }
 

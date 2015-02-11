@@ -9,7 +9,7 @@ module TypeStation
       def tag_data
         data = super
         data.merge!({ts_moveable: @options[:moveable]}) if @options[:moveable]
-        data.merge!({ts_moveable_distance: moveable_ancestor_level}) if moveable_ancestor_level
+        data.merge!({ts_moveable_distance: moveable_ancestor_level}) if @options[:ancestor_distance]
       end
 
       def tag_class
@@ -25,7 +25,7 @@ module TypeStation
       end
 
       def moveable_ancestor_level
-        TypeStation.config.moveable_ancestor_level || 1
+        @options[:ancestor_distance] || 1
       end
 
     end

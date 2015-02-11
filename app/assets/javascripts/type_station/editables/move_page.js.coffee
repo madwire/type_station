@@ -3,8 +3,8 @@ class window.TS.MovePage
     self = @
     self.parent_distance = parseInt(@elements.first().data('ts-moveable-distance')) or 1
 
-    $left_arrow = $('<i/>').addClass('fa fa-left-arrow fa-fw ts-move').data({'ts-direction': 'up'})
-    $right_arrow = $('<i/>').addClass('fa fa-right-arrow fa-fw ts-move').data({'ts-direction': 'down'})
+    $left_arrow = $('<i/>').addClass('fa fa-arrow-left fa-fw ts-move ts-move-left').data({'ts-direction': 'up'}).hide()
+    $right_arrow = $('<i/>').addClass('fa fa-arrow-right fa-fw ts-move ts-move-right').data({'ts-direction': 'down'}).hide()
 
     self.elements.each () ->
       $(@).append($left_arrow.clone(true)).append($right_arrow.clone(true))
@@ -13,18 +13,18 @@ class window.TS.MovePage
   enable: ->
     self = @
     # Need to ignore invalid movements (First up and last down)
-    self.elements.find('ts-move').on 'click', () ->
+    # Mongoid Tree handles this fine, but better to avoid uneccessary requests.
+    self.elements.find('.ts-move').show().on 'click', () ->
       $button = $(@)
-      id = $button.parent().date('ts-id')
+      id = $button.parent().data('ts-id')
       direction = $button.data('ts-direction')
       parent = $button.parents().eq(self.parent_distance)
       self.update id, direction, parent
     
   disable: ->
-    @elements.find('ts-move').off 'click'
+    @elements.find('.ts-move').off 'click'
 
   update: (id, direction, parent) ->
-    console.log "Moving #{id} #{direction}"
     $.ajax
       method: 'GET'
       url: window.TS.ADMIN_MOVE_PAGES_URL
@@ -32,7 +32,8 @@ class window.TS.MovePage
       contentType: 'application/json'
       data: {id: id, direction: direction}
       success: (data, status) -> 
-        console.log data, status
-        # MOVE ELEMENT
         if data.success
-          parent.insertBefore parent.prev()
+          if direction is 'up'
+            parent.insertBefore parent.prev()
+          else
+            parent.insertAfter parent.next()
