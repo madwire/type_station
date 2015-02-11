@@ -3,7 +3,7 @@ TypeStation::Engine.routes.draw do
 
   namespace :admin, path: "_admin" do
     resources :pages, only: [:index, :create, :update] do
-      get :move, on: :collection
+      get :move, on: :member
     end
   end
 
