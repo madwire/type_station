@@ -1,7 +1,7 @@
 module TypeStation
   class PagePresenter < BasePresenter
     presents :page
-    delegate :to_param, :title, :path, :slug, :template_name, :template_name?, :visible?, :redirect_to, :redirect?, to: :page
+    delegate :to_param, :title, :path, :slug, :template_name, :template_name?, :visible?, :redirect_to, :redirect?, :position, to: :page
 
     def initialize(object, template)
       super(object, template)
