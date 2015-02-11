@@ -12,17 +12,19 @@ class window.TS.MovePage
 
   enable: ->
     self = @
-    self.elements.find('ts-move-down').on 'click', () ->
+    # Need to ignore invalid movements (First up and last down)
+    self.elements.find('ts-move').on 'click', () ->
       $button = $(@)
       id = $button.parent().date('ts-id')
       direction = $button.data('ts-direction')
       parent = $button.parents().eq(self.parent_distance)
       self.update id, direction, parent
-
     
   disable: ->
+    @elements.find('ts-move').off 'click'
 
   update: (id, direction, parent) ->
+    console.log "Moving #{id} #{direction}"
     $.ajax
       method: 'GET'
       url: window.TS.ADMIN_MOVE_PAGES_URL
@@ -32,3 +34,5 @@ class window.TS.MovePage
       success: (data, status) -> 
         console.log data, status
         # MOVE ELEMENT
+        if data.success
+          parent.insertBefore parent.prev()
