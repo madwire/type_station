@@ -47,7 +47,7 @@ module TypeStation
             response[:message] = 'Failed to move page'
           end
         else
-          resposne[:message] = 'Invalid parameters'
+          response[:message] = 'Invalid parameters'
         end
         respond_to do |format|
           format.html { render text: response.inspect }
