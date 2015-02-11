@@ -77,7 +77,9 @@
 
 <ul>
 <%- ts_pages(:section, @page).each do |page| %>
-  <li><%= page.title %> - <%= page.test_value.value %> - <%= page.template_name %> - <%= page.another_test.value %></li>
+  <%= ts_edit :page, page, content_tag: :li, fields: [{name: :title, type: 'text', label: 'Section name'}, {name: :template_name, type: 'select', label: 'Section template', options: [['Cool', 'v'], ['Blah', 'b']]}, {name: :test_value, type: 'text', label: 'test value'}, {name: :another_test, type: 'textarea', label: 'Blah'}], data: {name: 'Section', default: {type: :hidden, name: :section}, moveable: true} do %>
+    <%= page.title %> - <%= page.test_value.value %> - <%= page.template_name %> - <%= page.another_test.value %></li>
+  <%- end %>
 <%- end %>
 </ul>
 

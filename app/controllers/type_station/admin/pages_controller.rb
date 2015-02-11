@@ -28,12 +28,17 @@ module TypeStation
       def update
         @page = TypeStation::Page.find(params[:id])
 
+        if params[:direction]
+          @page.move_page params[:direction]
+        end
+
         if @page.update_contents(contents)
           render json: { status: :success }, status: :ok
         else
           render json: @page.errors, status: :unprocessable_entity
         end
       end
+      
 
       private
 

@@ -45,7 +45,7 @@ $secondary-border-color: #357ebd;
   z-index: 100000;
 }
 
-.ts-editable-image, .ts-editable-file { position: relative;}
+.ts-editable-image, .ts-editable-file, .ts-edit-page { position: relative;}
 .ts-editable-button {
   position: absolute;
   bottom:0px;
@@ -63,6 +63,27 @@ $secondary-border-color: #357ebd;
   cursor: pointer;
   i { vertical-align: middle; }
   &:hover { background: rgba(27,33,36,0.87); }
+}
+
+.ts-edit-page-button {
+top: 0px;
+right: 0px;
+bottom: auto;
+left: auto;
+}
+
+.ts-move-up-button {
+top: 0px;
+right: 81px;
+bottom: auto;
+left: auto;
+}
+
+.ts-move-down-button {
+top: 0px;
+right: 40px;
+bottom: auto;
+left: auto;
 }
 
 body.ts-edit-mode {
@@ -191,6 +212,14 @@ body.ts-edit-mode {
   }
   &:hover { background-color: $secondary-border-color; }
 }
+
+.ts-moveable .ts-move {
+  height: 20px;
+  width: 20px;
+  background: red;
+}
+.ts-moveable .ts-move.ts-move-left { position: absolute; left: 0; top: 0; }
+.ts-moveable .ts-move.ts-move-right { position: absolute; right: 0; top: 0; }
 
 /* Hack for ionicicons v2 (no animation code) */
 .ion-spin-animation { -webkit-animation: spin 1s infinite linear; -moz-animation: spin 1s infinite linear; -o-animation: spin 1s infinite linear; animation: spin 1s infinite linear; }

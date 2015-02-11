@@ -69,6 +69,15 @@ module TypeStation
       save
     end
 
+    def move_page(direction)
+      case direction.to_sym
+      when :move_up
+        move_up
+      when :move_down
+        move_down
+      end
+    end
+
     def get(key)
       content_attributes[key].get
     end
