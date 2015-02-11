@@ -7,11 +7,12 @@ module TypeStation
       private
 
       def tag_data
-        (super).merge({ts_moveable: @options[:moveable]})
+        data = super
+        data.merge!({ts_moveable: @options[:moveable]}) if @options[:moveable]
+        data.merge!({ts_moveable_distance: moveable_ancestor_level}) if moveable_ancestor_level
       end
 
       def tag_class
-        puts config
         (super).push(@options[:moveable] ? 'ts-moveable' : nil).compact
       end
 
@@ -21,6 +22,10 @@ module TypeStation
 
       def tag_ts_url
         model.edit_url
+      end
+
+      def moveable_ancestor_level
+        config.moveable_ancestor_level || 1
       end
 
     end

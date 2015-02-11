@@ -1,7 +1,7 @@
 buildFields = (element) ->
   tsFields = element.data('tsFields')
   inputs = ''
-  
+  # Did Rob do this bit? ;)
   for field in tsFields
     label = "<label for='#{field.name}'>#{field.label}</label>"
     input = switch field.type
