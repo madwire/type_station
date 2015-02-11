@@ -25,7 +25,7 @@ module TypeStation
       end
 
       def moveable_ancestor_level
-        config.moveable_ancestor_level || 1
+        TypeStation.config.moveable_ancestor_level || 1
       end
 
     end

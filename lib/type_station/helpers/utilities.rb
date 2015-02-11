@@ -21,7 +21,7 @@ module TypeStation
           result << javascript_include_tag("type_station/application") 
           result << cloudinary_js_config     
           urls = "window.TS.ADMIN_PAGES_URL = '#{type_station.admin_pages_url}';"
-          urls << "window.TS.ADMIN_MOVE_PAGES_URL = '#{type_station.move_admin_page_url}';"
+          urls << "window.TS.ADMIN_MOVE_PAGES_URL = '#{type_station.move_admin_pages_url}';"
 
           result << content_tag(:script, urls.html_safe, type: 'text/javascript')
         end

@@ -20,6 +20,7 @@ module TypeStation
     config_accessor :authenticate_with
     config_accessor :authorise_with
     config_accessor :current_user
+    config_accessor :moveable_ancestor_level
     
   end
 
