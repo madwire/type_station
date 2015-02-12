@@ -15,6 +15,7 @@
 //= require jquery.textcomplete
 //= require classList
 //= require medium-editor
+//= require chosen.jquery.min
 //= require drop
 //= require vex.combined.min
 //= require type_station/lib/ts
