@@ -56,7 +56,7 @@ class window.TS.EditPage
             model = window.TS.getModel $el.data('ts-url')
           
             vex.dialog.confirm
-              message: 'Are you sure you want to create this?'
+              message: 'Are you sure you want to save changes?'
               callback: (value) ->
                 if value
                   for k,v of data
