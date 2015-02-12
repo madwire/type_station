@@ -16,7 +16,7 @@ class window.TS.LinkFinder
               data: {path: term}
               success: (data, status) -> 
                 callback(data.pages)
-          replace: (page) -> page.path.substring(1)
+          replace: (page) -> page.path#.substring(1)
           template: (page) -> "#{page.title} (#{page.path})"
         }
       ], 
