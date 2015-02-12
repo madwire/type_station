@@ -21,6 +21,7 @@ buildFields = (element) ->
   inputs = ''
   model = window.TS.getModel element.data('ts-url')
   modelValues = element.data('ts-data')['ts_values']
+
   for field in tsFields
     label = "<label for='#{field.name}'>#{field.label}</label>"
     input = switch field.type
@@ -30,6 +31,12 @@ buildFields = (element) ->
         select = "<select name='#{field.name}' id='#{field.name}'>"
         for o in field.options
           select += "<option value='#{o[1]}' #{if modelValues[field.name] == o[1] then 'selected'}>#{o[0]}</option>"
+        select += "</select>"
+        select 
+      when "multiple_select"
+        select = "<select name='#{field.name}' id='#{field.name}' class='multiple_select' multiple>"
+        for o in field.options
+          select += "<option value='#{o[1]}' #{if modelValues[field.name] && modelValues[field.name].indexOf(o[1]) > -1 then 'selected' else ''}>#{o[0]}</option>"
         select += "</select>"
         select 
     inputs += "<div class'vex-custom-field-wrapper'>#{label}<div class='vex-custom-input-wrapper'>#{input}</div></div>"
@@ -60,6 +67,8 @@ class window.TS.EditPage
         message: "Edit #{tsData.name || 'Page'}"
         input: buildFields($element)
         $element: $element
+        afterOpen: ($vexContent) ->
+          $("select.multiple_select", $vexContent).chosen()
         callback: (data) ->
           if data
             $el = @$element
@@ -70,7 +79,7 @@ class window.TS.EditPage
               callback: (value) ->
                 if value
                   for k,v of data
-                    model.set(k, { field: k, value: v, type: 'text' })
+                    model.set(k, { field: k, value: v, type: if $.isArray(v) then 'multiple_select' else 'text' })
                   model.save ->
                     window.location.reload()
 

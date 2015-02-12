@@ -54,8 +54,10 @@
 <%- end %>
 
 <%- @page.children.each do |page| %>
-  <%= ts_editable page, :image_one, type: :image do |image| %>
-    <%= ts_image_tag(image.identifier || 'http://lorempixel.com/100/100/', width: 100, height: 100, class: 'test', crop: :fit) %>
+  <%= ts_edit :page, page, content_tag: :div, fields: [{name: :title, type: 'text', label: 'Section name'}], data: {name: 'Section', default: {type: :hidden, name: :section}, moveable: true} do %>
+    <%= ts_editable page, :image_one, type: :image do |image| %>
+      <%= ts_image_tag(image.identifier || 'http://lorempixel.com/100/100/', width: 100, height: 100, class: 'test', crop: :fit) %>
+    <%- end %>
   <%- end %>
 <%- end %>
 
@@ -71,14 +73,14 @@
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <%- end %>
 
-<%= ts_new :page, @page, content_tag: :div, fields: [{name: :title, type: 'text', label: 'Section name'}, {name: :template_name, type: 'select', label: 'Section template', options: [['Cool', 'v'], ['Blah', 'b']]}, {name: :test_value, type: 'text', label: 'test value'}, {name: :another_test, type: 'textarea', label: 'Blah'}], data: {name: 'Section', default: {type: :hidden, name: :section}} do %>
+<%= ts_new :page, @page, content_tag: :div, fields: [{name: :title, type: 'text', label: 'Section name'}, {name: :template_name, type: 'select', label: 'Section template', options: [['Cool', 'v'], ['Blah', 'b']]}, {name: :test_value, type: 'text', label: 'test value'}, {name: :another_test, type: 'textarea', label: 'Blah'}, {name: :tags, type: 'multiple_select', label: 'Tags', options: [['Cool', 'v'], ['Blah', 'b'], ['sdfsdfdf', 'dd']]}], data: {name: 'Section', default: {type: :hidden, name: :section}} do %>
   <h1>New Section</h1>
 <%- end %>
 
 <ul>
 <%- ts_pages(:section, @page).each do |page| %>
-  <%= ts_edit :page, page, content_tag: :li, fields: [{name: :title, type: 'text', label: 'Section name'}, {name: :template_name, type: 'select', label: 'Section template', options: [['Cool', 'v'], ['Blah', 'b']]}, {name: :test_value, type: 'text', label: 'test value'}, {name: :another_test, type: 'textarea', label: 'Blah'}], data: {name: 'Section', default: {type: :hidden, name: :section}, moveable: 'left_to_right'} do %>
-    <%= page.title %> - <%= page.test_value.value %> - <%= page.template_name %> - <%= page.another_test.value %></li>
+  <%= ts_edit :page, page, content_tag: :li, fields: [{name: :title, type: 'text', label: 'Section name'}, {name: :template_name, type: 'select', label: 'Section template', options: [['Cool', 'v'], ['Blah', 'b']]}, {name: :test_value, type: 'text', label: 'test value'}, {name: :another_test, type: 'textarea', label: 'Blah'}, {name: :tags, type: 'multiple_select', label: 'Tags', options: [['Cool', 'v'], ['Blah', 'b'], ['sdfsdfdf', 'dd']]}], data: {name: 'Section', default: {type: :hidden, name: :section}, moveable: 'left_to_right'} do %>
+    <%= page.title %> - <%= page.test_value.value %> - <%= page.template_name %> - <%= page.another_test.value %> - <%= page.try(:tags).try(:value) %></li>
   <%- end %>
 <%- end %>
 </ul>

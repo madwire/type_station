@@ -12,6 +12,12 @@ buildFields = (element) ->
         for o in field.options
           select += "<option value='#{o[1]}'>#{o[0]}</option>"
         select += "</select>"
+        select
+      when "multiple_select"
+        select = "<select name='#{field.name}' id='#{field.name}' class='multiple_select' multiple>"
+        for o in field.options
+          select += "<option value='#{o[1]}'>#{o[0]}</option>"
+        select += "</select>"
         select 
     inputs += "<div class'vex-custom-field-wrapper'>#{label}<div class='vex-custom-input-wrapper'>#{input}</div></div>"
 
@@ -30,6 +36,8 @@ class window.TS.NewPage
         message: "New #{tsData.name || 'Page'}"
         input: buildFields($element)
         $element: $element
+        afterOpen: ($vexContent) ->
+          $("select.multiple_select", $vexContent).chosen()
         callback: (data) ->
           console.log data
           if data
@@ -41,7 +49,7 @@ class window.TS.NewPage
               contents = []
               for k,v of data
                 if k != 'title'
-                  contents.push({ field: k, value: v, type: 'text' })
+                  contents.push({ field: k, value: v, type: if $.isArray(v) then 'multiple_select' else 'text' })
 
               json = {}
               json['title'] = data.title
