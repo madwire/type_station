@@ -38,6 +38,16 @@ module TypeStation
           render json: @page.errors, status: :unprocessable_entity
         end
       end
+
+      def destroy
+        @page = TypeStation::Page.find(params[:id])
+
+        if @page.delete
+          render json: { status: :success }, status: :ok
+        else
+          render json: @page.errors, status: :unprocessable_entity
+        end
+      end
       
 
       private

@@ -7,6 +7,15 @@ move = (element, direction) ->
     data: JSON.stringify({direction: direction})
     success: (data, status) -> window.location.reload()
 
+deletePage = (element) ->
+  $.ajax
+    type: "DELETE"
+    url: element.data('ts-url')
+    dataType: 'json'
+    contentType: 'application/json'
+    data: {}
+    success: (data, status) -> window.location.reload()
+
 buildFields = (element) ->
   tsFields = element.data('tsFields')
   inputs = ''
@@ -31,6 +40,7 @@ class window.TS.EditPage
   constructor: (@elements) ->
     for element in @elements
       $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-edit-page-button').addClass('ts-button').html("<i class='ion-compose'></i>"))
+      $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-delete-page-button').addClass('ts-button').html("<i class='ion-trash-b'></i>"))
       if $(element).data('tsData')['moveable']
         switch $(element).data('tsData')['moveable']
           when 'left_to_right'
@@ -68,6 +78,14 @@ class window.TS.EditPage
       move $(@).parent(), 'move_up'
     $('.ts-move-down-button', @elements).on 'click', ->
       move $(@).parent(), 'move_down'
+
+    $('.ts-delete-page-button', @elements).on 'click', ->
+      $element = $(@).parent()
+      vex.dialog.confirm
+        message: 'Are you sure you want to delete this?'
+        callback: (value) ->
+          if value
+            deletePage($element)
 
 
 
