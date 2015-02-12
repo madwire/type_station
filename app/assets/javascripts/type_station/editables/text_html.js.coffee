@@ -16,7 +16,7 @@ class window.TS.EditableText
   constructor: (@elements) ->
     @editor = new MediumEditor @elements,
       disableReturn: true
-      # buttons: ['bold', 'italic', 'underline', 'anchor']
+      buttons: ['bold', 'italic', 'underline', 'anchor']
       buttons: []
       anchorInputPlaceholder: 'Type a link'
       # anchorInputCheckboxLabel: true
