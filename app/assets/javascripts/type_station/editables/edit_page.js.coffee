@@ -32,9 +32,14 @@ class window.TS.EditPage
     for element in @elements
       $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-edit-page-button').addClass('ts-button').html("<i class='ion-compose'></i>"))
       if $(element).data('tsData')['moveable']
-        $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-up-b'></i>"))
-        $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-down-b'></i>"))
-  
+        switch $(element).data('tsData')['moveable']
+          when 'left_to_right'
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-left-b'></i>"))
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-right-b'></i>"))
+          else
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-up-b'></i>"))
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-down-b'></i>"))
+
   enable: ->
     @disable()
     $('.ts-edit-page-button', @elements).on 'click', ->
