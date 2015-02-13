@@ -45,7 +45,9 @@ $secondary-border-color: #357ebd;
   z-index: 100000;
 }
 
-.ts-editable-image, .ts-editable-file, .ts-edit-page { position: relative;}
+.ts-editable-image, .ts-editable-file, .ts-edit-page { 
+  position: relative;
+}
 .ts-editable-button {
   position: absolute;
   bottom:0px;
@@ -63,6 +65,8 @@ $secondary-border-color: #357ebd;
   cursor: pointer;
   i { vertical-align: middle; }
   &:hover { background: rgba(27,33,36,0.87); }
+
+  display: none;
 }
 
 .ts-edit-page-button {
@@ -94,14 +98,18 @@ left: auto;
 }
 
 body.ts-edit-mode {
-  .ts-editable-html, .ts-editable-image, .ts-editable-file, .ts-editable-text {
+  .ts-editable-html, .ts-editable-image, .ts-editable-file, .ts-editable-text, .ts-edit-page {
     border: 1px solid transparent;
     outline: none;
     -webkit-transition: border 0.5s;
     transition: border 0.5s;
-    &:hover { outline: 1px solid #428bca; }//$primary-border-color; }
+    &:hover { 
+      outline: 1px solid #428bca; 
+      .ts-editable-button { display: block; }
+    }
   }
-  .ts-editable-button { display: block; }
+
+  
 }
 
 .vex-custom-field-wrapper {
@@ -164,6 +172,10 @@ body.ts-edit-mode {
 
 .vex-custom-input-wrapper .chosen-drop {
   border-top: 1px solid #999;
+
+  .result-selected {
+    display: none !important; 
+  }
 
   .highlighted {
     color: #fff !important;
