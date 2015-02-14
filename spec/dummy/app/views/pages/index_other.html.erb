@@ -20,6 +20,14 @@
 <%- end %>
 </h1>
 
+<%= ts_edit :link_one, @page, {type: :link, fields: [{name: :link_one, type: 'text', label: 'Url'}]} do |url| %>
+  LINK
+<%- end %>
+
+<%= ts_edit :link_two, @page, {type: :link, fields: [{name: :link_two, type: 'text', label: 'Url'}]} do |url| %>
+  LINK
+<%- end %>
+
 <h1>
 <%= ts_editable @page, :title_c do %>
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

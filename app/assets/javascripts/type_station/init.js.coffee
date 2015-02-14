@@ -41,6 +41,7 @@ window.TS.init = ->
   @editors.set 'ts-editable-image', new window.TS.EditableImage $('.ts-editable-image')
   @editors.set 'ts-editable-file', new window.TS.EditableFile $('.ts-editable-file')
   @editors.set 'ts-new-page', new window.TS.NewPage $('.ts-new-page')
+  @editors.set 'ts-edit-link', new window.TS.EditLink $('.ts-edit-link')
   @editors.set 'ts-link-finder', new window.TS.LinkFinder null
   @editors.set 'ts-edit-page', new window.TS.EditPage $('.ts-edit-page')
 
