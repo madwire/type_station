@@ -62,7 +62,7 @@ setUpDrops = (elements)->
   for element in elements
     tsData = $(element).data('tsData')
     drop = new Drop
-      target: $('.ts-editable-button', element)[0]
+      target: $('.ts-editable-link-button', element)[0]
       content: buildUploader(element, tsData)[0]
       position: 'top left'
       openOn: 'click'
