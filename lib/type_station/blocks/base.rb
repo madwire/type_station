@@ -24,7 +24,7 @@ module TypeStation
       end
 
       def tag_data
-        tag_data = {ts_id: tag_ts_id, ts_url: tag_ts_url, ts_key: key, ts_data: tag_ts_data}
+        {ts_id: tag_ts_id, ts_url: tag_ts_url, ts_key: key, ts_data: tag_ts_data}
       end
 
       def tag_name

@@ -2,11 +2,9 @@ buildUploader = (element, data)->
   $element = $(element)
   elementId = $element.attr('id')
   $title = $('<h4/>')
-  $save = $('<button/>')
+  $save = $('<button/>').attr({'data-element-id': elementId})
   $container = $('<div/>')
   $fields = []
-  model = window.TS.getModel $element.data('ts-url')
-  values = $element.data('ts-data')['ts_values']
 
   $title
     .addClass('ts-edit-link-title')
@@ -15,27 +13,40 @@ buildUploader = (element, data)->
     .append($title)
     .addClass('ts-edit-link-container')
 
-  for key, value of values
-    $input = $('<input/>')
-    $label = $('<label/>')
-    $label.text(window.titleize key)
-    $input
-      .attr({type: "text", name: key, class: 'ts-edit-link-input ts-link-finder', 'data-form-data': JSON.stringify(data), 'data-element-id': elementId})
-      .val(value)
+  $input = $('<input/>')
+  $input
+    .attr({type: "text", name: 'link', class: 'ts-edit-link-input ts-link-finder', 'data-element-id': elementId})
+    .val($element.attr('href'))
+    .textcomplete [
+      {
+        match: /^\/(\w*)$/
+        index: 1
+        search: (term, callback) ->
+          $.ajax
+            method: 'GET'
+            url: window.TS.ADMIN_PAGES_URL
+            dataType: 'json'
+            contentType: 'application/json'
+            data: {path: term}
+            success: (data, status) -> 
+              callback(data.pages)
+        replace: (page) -> page.path
+        template: (page) -> "#{page.title} (#{page.path})"
+      }
+    ], 
+      zIndex: 10000
 
     $container
-      .append $label
       .append $input
-    $fields.push $input
 
   $save
     .addClass 'ts-save-url'
-    .text 'Save'
+    .text 'Ok'
     .on 'click', () ->
-      for $field in $fields
-        model.set($($field).attr('name'), { field: $($field).attr('name'), value: $($field).val(), type: 'text' })
-      model.save ->
-        window.location.reload()
+      $element = $("##{$(this).data('elementId')}")
+      $element.data('drop').close()
+      model = window.TS.getModel $element.data('ts-url')
+      model.set($element.data('ts-key'), { field: $element.data('ts-key'), value: $input.val(), type: 'text' })
   $container
     .append $save
 
