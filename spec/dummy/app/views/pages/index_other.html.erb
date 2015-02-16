@@ -20,13 +20,23 @@
 <%- end %>
 </h1>
 
-<%= ts_edit :link_one, @page, {type: :link, fields: [{name: :link_one, type: 'text', label: 'Url'}]} do |url| %>
+<%= ts_link @page, :link_one, default: 'http://google.com' do %>
   LINK
 <%- end %>
 
-<%= ts_edit :link_two, @page, {type: :link, fields: [{name: :link_two, type: 'text', label: 'Url'}]} do |url| %>
+<%= ts_link @page, :link_two do %>
   LINK
 <%- end %>
+
+
+<%= ts_link @page, :link_one_b, default: 'http://google.com' do %>
+  LINK
+<%- end %>
+
+<%= ts_link @page, :link_two_b do %>
+  LINK
+<%- end %>
+
 
 <h1>
 <%= ts_editable @page, :title_c do %>
