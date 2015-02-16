@@ -2,7 +2,7 @@ require 'type_station/blocks/base'
 
 module TypeStation
   module Blocks
-    class StickLink < Base
+    class StaticLink < Base
 
       def render(content)
         content_tag(tag_name, content.html_safe, class: tag_class, href: href)
