@@ -65,3 +65,4 @@ class window.TS.EditableImage
       drop.remove()
       drop.destroy()
     @drops = []
+    

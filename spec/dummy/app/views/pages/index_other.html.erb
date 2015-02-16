@@ -20,6 +20,24 @@
 <%- end %>
 </h1>
 
+<%= ts_link @page, :link_one, default: 'http://google.com' do %>
+  LINK
+<%- end %>
+
+<%= ts_link @page, :link_two do %>
+  LINK
+<%- end %>
+
+
+<%= ts_link @page, :link_one_b, default: 'http://google.com' do %>
+  LINK
+<%- end %>
+
+<%= ts_link @page, :link_two_b do %>
+  LINK
+<%- end %>
+
+
 <h1>
 <%= ts_editable @page, :title_c do %>
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

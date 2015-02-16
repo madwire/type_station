@@ -20,6 +20,17 @@ module TypeStation
         end      
       end
 
+
+      def ts_link(model, key, options = {}, &block)
+        content = capture(&block)
+
+        if type_station_current_user
+          TypeStation::Blocks::EditLink.new(model, key, options).render(content)
+        else
+          TypeStation::Blocks::StaticLink.new(model, key, options).render(content)
+        end 
+      end
+
     end
   end
 end
