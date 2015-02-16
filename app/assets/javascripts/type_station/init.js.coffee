@@ -22,12 +22,20 @@ window.TS.enable = ->
   @onEnable()
   @editors.each (id, editor) -> editor.enable()
   @onEnabled()
+  $(window).on 'beforeunload', =>
+    dirtyArray = []
+    @models.each (id, model) -> dirtyArray.push model.isChanged()
+    if $.grep(dirtyArray, (a) ->  a == true ).length > 0
+      return 'You have unsaved changes. Are you sure you want to leave?'
+    else
+      return
 
 window.TS.disable = ->
   window.location.hash = '#!ts-edit-disable'
   @onDisable()
   @editors.each (id, editor) -> editor.disable()
   @onDisabled()
+  $(window).off 'beforeunload'
 
 window.TS.save = ->
   @onSave()
