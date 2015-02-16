@@ -76,7 +76,7 @@ class window.TS.EditLink
   constructor: (@elements) ->
     @drops = []
     for element in @elements
-      $(element).append($('<div>').addClass('ts-editable-button').addClass('ts-button').html("<i class='ion-link'></i>"))
+      $(element).append($('<div>').addClass('ts-editable-button').addClass('ts-button').addClass('ts-editable-link-button').html("<i class='ion-link'></i>"))
 
   enable: ->
     @disable()

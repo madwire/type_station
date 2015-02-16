@@ -64,8 +64,6 @@ $secondary-border-color: #357ebd;
   cursor: pointer;
   i { vertical-align: middle; }
   &:hover { background: rgba(27,33,36,0.87); }
-
-  display: none;
 }
 
 .ts-edit-page-button {
@@ -96,8 +94,13 @@ bottom: auto;
 left: auto;
 }
 
+.ts-editable-link-button {
+  bottom: auto;
+  top:0px;
+}
+
 body.ts-edit-mode {
-  .ts-editable-html, .ts-editable-image, .ts-editable-file, .ts-editable-text, .ts-edit-page {
+  .ts-editable-html, .ts-editable-image, .ts-editable-file, .ts-editable-text, .ts-edit-page, .ts-edit-link  {
     border: 1px solid transparent;
     outline: none;
     -webkit-transition: border 0.5s;
