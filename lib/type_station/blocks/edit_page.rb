@@ -17,9 +17,10 @@ module TypeStation
       def tag_ts_data
         values = options[:fields].map do |field| 
           content = model.try(field[:name])
-          [field[:name], content.is_a?(String) ? content : content.try(:value)]
+          value = content.is_a?(String) ? content : content.try(:value)
+          [field[:name], value] if value
         end
-        super.merge({ts_values: Hash[*values.flatten], ts_position: model.position })
+        super.merge({ts_values: Hash[*values.compact.flatten(1)], ts_position: model.position })
       end
 
     end

@@ -46,6 +46,7 @@ $secondary-border-color: #357ebd;
 }
 
 .ts-editable-image, .ts-editable-file, .ts-edit-page, .ts-edit-link { position: relative;}
+
 .ts-editable-button {
   position: absolute;
   bottom:0px;
@@ -63,9 +64,18 @@ $secondary-border-color: #357ebd;
   cursor: pointer;
   i { vertical-align: middle; }
   &:hover { background: rgba(27,33,36,0.87); }
+
+  display: none;
 }
 
 .ts-edit-page-button {
+top: 0px;
+right: 40px;
+bottom: auto;
+left: auto;
+}
+
+.ts-delete-page-button {
 top: 0px;
 right: 0px;
 bottom: auto;
@@ -74,27 +84,31 @@ left: auto;
 
 .ts-move-up-button {
 top: 0px;
-right: 81px;
+right: 120px;
 bottom: auto;
 left: auto;
 }
 
 .ts-move-down-button {
 top: 0px;
-right: 40px;
+right: 80px;
 bottom: auto;
 left: auto;
 }
 
 body.ts-edit-mode {
-  .ts-editable-html, .ts-editable-image, .ts-editable-file, .ts-editable-text {
+  .ts-editable-html, .ts-editable-image, .ts-editable-file, .ts-editable-text, .ts-edit-page {
     border: 1px solid transparent;
     outline: none;
     -webkit-transition: border 0.5s;
     transition: border 0.5s;
-    &:hover { outline: 1px solid #428bca; }//$primary-border-color; }
+    &:hover { 
+      outline: 1px solid #428bca; 
+      .ts-editable-button { display: block; }
+    }
   }
-  .ts-editable-button { display: block; }
+
+  
 }
 
 .vex-custom-field-wrapper {
@@ -120,6 +134,58 @@ body.ts-edit-mode {
   font-size: inherit;
   min-height: 2.5em;
   margin: 0 0 0.25em;
+  &:focus {
+    box-shadow: inset 0 0 0 1px #3288e6;
+    outline: none;
+  }
+}
+
+.vex-custom-input-wrapper .chosen-choices {
+ -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  background: white;
+  width: 100%;
+  height: 40px;
+  padding: 0.25em 0.67em;
+  border: 0;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  min-height: 2.5em;
+  margin: 0 0 0.25em; 
+  box-shadow: none;
+
+  .search-choice {
+    font-size: 1.2em;
+    line-height: 19px !important;
+    height: 28px;
+
+    .search-choice-close {
+      top: 7px !important;
+    }
+  }
+}
+
+.vex-custom-input-wrapper .chosen-drop {
+  border-top: 1px solid #999;
+
+  .result-selected {
+    display: none !important; 
+  }
+
+  .highlighted {
+    color: #fff !important;
+  }
+}
+
+.vex-custom-input-wrapper .chosen-container-active .chosen-choices {
+  box-shadow: inset 0 0 0 1px #3288e6;
+  .search-field input {
+    box-shadow: none !important;
+  }
 }
 
 

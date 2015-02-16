@@ -103,6 +103,8 @@ module TypeStation
     end
 
     def visible?(user)
+      return true if parent_id == nil # The root page is always visible
+
       if user.present?
         [:draft, :published].include?(type)
       else

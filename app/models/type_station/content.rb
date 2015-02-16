@@ -32,10 +32,6 @@ module TypeStation
 
     def convert(value)
       case type
-      #when :image
-      #  preloaded = Cloudinary::PreloadedFile.new(value)         
-      #  raise "Invalid upload signature" if !preloaded.valid?
-      #  preloaded.identifier
       when :multiple_select
         convert_to_array(value)
       else
