@@ -101,7 +101,7 @@ left: auto;
 
 body.ts-edit-mode {
   .ts-editable-html, .ts-editable-image, .ts-editable-file, .ts-editable-text, .ts-edit-page, .ts-edit-link  {
-    border: 1px solid transparent;
+    border: none;
     outline: none;
     -webkit-transition: border 0.5s;
     transition: border 0.5s;
