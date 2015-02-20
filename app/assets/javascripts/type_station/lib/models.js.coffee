@@ -18,9 +18,12 @@ class window.TS.Model extends window.TS.Store
     super key, value
     @DIRTY[key] = 1
 
-
   changedKeys: -> Object.keys(@DIRTY)
   isChanged: -> @changedKeys().length > 0
+
+  _reset: ->
+    @STORE = {}
+    @DIRTY = {}
 
   save: (callback = ->) ->
     self = @
@@ -35,4 +38,6 @@ class window.TS.Model extends window.TS.Store
       dataType: 'json'
       contentType: 'application/json'
       data: JSON.stringify({contents: data})
-      success: (data) -> callback(data)
+      success: (data) -> 
+        self._reset() #reset model to a clean state
+        callback(data)
