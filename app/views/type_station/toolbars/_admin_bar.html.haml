@@ -107,7 +107,7 @@
 
 #ts-admin-bar-settings{data: {ts_url: model.edit_url}}
   .vex-custom-field-wrapper
-    %label{for: "type"} Template
+    %label{for: "type"} Type
     .vex-custom-input-wrapper
       = select_tag "type", options_for_select({hidden: 'Hidden', draft: 'Draft', published: 'Published'}.map {|(k,v)| [v,k.to_s]}, model.try(:type).to_s)
 
