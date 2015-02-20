@@ -53,6 +53,12 @@ class window.TS.EditPage
           when 'left_to_right'
             $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-left-b'></i>"))
             $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-right-b'></i>"))
+          when 'invert_left_to_right'
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-left-b'></i>"))
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-right-b'></i>"))
+          when 'invert'
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-up-b'></i>"))
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-down-b'></i>"))
           else
             $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-up-b'></i>"))
             $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-down-b'></i>"))
