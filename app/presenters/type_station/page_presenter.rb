@@ -16,8 +16,14 @@ module TypeStation
       h.type_station.admin_pages_url
     end
 
-    def children
-      @children ||= page.children.map {|p| PagePresenter.new(p, @template)}
+    def children(options = {})
+      children_criteria = page.children
+
+      options.each do |method, value|
+        children_criteria = children_criteria.send method, value
+      end
+
+      @children ||= children_criteria.map {|p| PagePresenter.new(p, @template)}
     end
 
     def parent
