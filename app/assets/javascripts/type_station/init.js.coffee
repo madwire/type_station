@@ -23,9 +23,7 @@ window.TS.enable = ->
   @editors.each (id, editor) -> editor.enable()
   @onEnabled()
   $(window).on 'beforeunload', =>
-    dirtyArray = []
-    @models.each (id, model) -> dirtyArray.push model.isChanged()
-    if $.grep(dirtyArray, (a) ->  a == true ).length > 0
+    if @isChanged()
       return 'You have unsaved changes. Are you sure you want to leave?'
     else
       return
@@ -41,6 +39,11 @@ window.TS.save = ->
   @onSave()
   @models.each (id, model) -> model.save()
   @onSaved()
+
+window.TS.isChanged = ->
+  dirtyArray = []
+  @models.each (id, model) -> dirtyArray.push model.isChanged()
+  $.grep(dirtyArray, (a) ->  a == true ).length > 0
 
 window.TS.init = ->
   @editors.set 'ts-admin-bar', new window.TS.AdminBar $('#ts-admin-bar-template')

@@ -10,6 +10,12 @@ class window.TS.AdminBar
 
     $('#ts-admin-bar-cancel').on 'click', ->
       window.TS.disable()
+      if window.TS.isChanged()
+        vex.dialog.confirm
+          message: 'You have unsaved changes, Do you want to discard them?'
+          callback: (value) ->
+            if value
+              window.location.reload()
       false
     
     $('#ts-admin-bar-save').on 'click', ->
