@@ -68,6 +68,7 @@ class window.TS.NewPage
                       data: JSON.stringify(json)
                       success: (data, status) -> window.location.reload()
             else
+              vex.dialog.buttons.YES.text = 'Ok'
               vex.dialog.alert
                 message: 'Please fill in all required fields'
                 callback: ->
