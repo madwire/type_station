@@ -54,11 +54,11 @@ class window.TS.EditPage
             $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-left-b'></i>"))
             $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-right-b'></i>"))
           when 'invert_left_to_right'
-            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-left-b'></i>"))
-            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-right-b'></i>"))
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button-invert').addClass('ts-button').html("<i class='ion-arrow-left-b'></i>"))
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button-invert').addClass('ts-button').html("<i class='ion-arrow-right-b'></i>"))
           when 'invert'
-            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-up-b'></i>"))
-            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-down-b'></i>"))
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button-invert').addClass('ts-button').html("<i class='ion-arrow-up-b'></i>"))
+            $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button-invert').addClass('ts-button').html("<i class='ion-arrow-down-b'></i>"))
           else
             $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-up-button').addClass('ts-button').html("<i class='ion-arrow-up-b'></i>"))
             $(element).append($('<span>').addClass('ts-editable-button').addClass('ts-move-down-button').addClass('ts-button').html("<i class='ion-arrow-down-b'></i>"))
@@ -89,9 +89,9 @@ class window.TS.EditPage
                   model.save ->
                     window.location.reload()
 
-    $('.ts-move-up-button', @elements).on 'click', ->
+    $('.ts-move-up-button, .ts-move-up-button-invert', @elements).on 'click', ->
       move $(@).parent(), 'move_up'
-    $('.ts-move-down-button', @elements).on 'click', ->
+    $('.ts-move-down-button, .ts-move-down-button-invert', @elements).on 'click', ->
       move $(@).parent(), 'move_down'
 
     $('.ts-delete-page-button', @elements).on 'click', ->
