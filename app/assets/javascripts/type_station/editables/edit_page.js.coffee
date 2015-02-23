@@ -18,11 +18,13 @@ deletePage = (element) ->
 
 buildFields = (element) ->
   tsFields = element.data('tsFields')
+  tsFieldTypes = {}
   inputs = ''
   model = window.TS.getModel element.data('ts-url')
   modelValues = element.data('ts-data')['ts_values']
 
   for field in tsFields
+    tsFieldTypes[field.name] = field.type
     label = "<label for='#{field.name}'>#{field.label}</label>"
     input = switch field.type
       when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' value='#{modelValues[field.name]}' />"
@@ -41,6 +43,7 @@ buildFields = (element) ->
         select 
     inputs += "<div class'vex-custom-field-wrapper'>#{label}<div class='vex-custom-input-wrapper'>#{input}</div></div>"
 
+  element.data('tsFieldTypes', tsFieldTypes)
   inputs
 
 class window.TS.EditPage
@@ -78,6 +81,7 @@ class window.TS.EditPage
         callback: (data) ->
           if data
             $el = @$element
+            tsFieldTypes = $el.data('tsFieldTypes')
             model = window.TS.getModel $el.data('ts-url')
           
             vex.dialog.confirm
@@ -85,7 +89,8 @@ class window.TS.EditPage
               callback: (value) ->
                 if value
                   for k,v of data
-                    model.set(k, { field: k, value: v, type: if $.isArray(v) then 'multiple_select' else 'text' })
+                    type = tsFieldTypes[k]
+                    model.set(k, { field: k, value: v, type: if type == 'multiple_select' then 'multiple_select' else 'text' })
                   model.save ->
                     window.location.reload()
 
