@@ -15,7 +15,7 @@ module TypeStation
 
     # VALIDATIONS
 
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: { scope: :type }
     validates :type, presence: true
 
     # INSTANT METHODS

@@ -55,15 +55,18 @@ module TypeStation
 
     def update_contents(params)
       params.each do |data|
-        if content?(data[:field])
-          set(data[:field], data[:value])
+        field, value, type = data[:field].to_sym, data[:value], data[:type].to_sym
+
+        if content?(field)
+          set(field, value)
         else
-          if self[data[:field]].present? && !changed.include?(data[:field].to_sym) #and not changed already
-            self[data[:field]] = data[:value]
+          if self[field].present? && !changed.include?(field) #and not changed already
+            self[field] = value
           else
-            contents.build(name: data[:field], type: data[:type]).set(data[:value])
+            contents.build(name: field, type: type).set(value)
           end
         end
+        
       end
 
       save
