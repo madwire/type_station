@@ -30,6 +30,10 @@ module TypeStation
       @parent ||= PagePresenter.new(page.parent, @template)
     end
 
+    def root
+      @root ||= PagePresenter.new(TypeStation::Page.root, @template)
+    end
+
     private
 
     def build_content_methods
