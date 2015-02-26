@@ -20,7 +20,7 @@ buildUploader = (element, data)->
     .bind 'cloudinarydone', (e, data) ->
       $element = $("##{$(this).data('elementId')}")
       for imageTag in $('.ts-editable-link-tag', $element)
-        $(imageTag).attr('href', $.cloudinary.url(data.result.public_id, {}))
+        $(imageTag).attr('href', $.cloudinary.url(data.result.public_id, {resource_type: 'raw'}))
       $element.data('drop').close()
       $(this).prop('disabled', false)
       $('.ts-progress-bar').remove()
