@@ -27,8 +27,8 @@ buildFields = (element) ->
     tsFieldTypes[field.name] = field.type
     label = "<label for='#{field.name}'>#{field.label}</label>"
     input = switch field.type
-      when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' value='#{modelValues[field.name]}' />"
-      when "textarea" then "<textarea name='#{field.name}' id='#{field.name}' rows='5'>#{modelValues[field.name]}</textarea>"
+      when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' value='#{if modelValues[field.name] then modelValues[field.name] else ''}' />"
+      when "textarea" then "<textarea name='#{field.name}' id='#{field.name}' rows='5'>#{if modelValues[field.name] then modelValues[field.name] else ''}</textarea>"
       when "select"
         select = "<select name='#{field.name}' id='#{field.name}'>"
         for o in field.options
