@@ -57,16 +57,15 @@ module TypeStation
       params.each do |data|
         field, value, type = data[:field].to_sym, data[:value], data[:type].to_sym
 
-        if content?(field)
-          set(field, value)
+        if page_fields?(field) && !changed.include?(field) #and not changed already
+          self[field] = value
         else
-          if self[field].present? && !changed.include?(field) #and not changed already
-            self[field] = value
+          if content?(field)
+            set(field, value)
           else
             contents.build(name: field, type: type).set(value)
           end
-        end
-        
+        end 
       end
 
       save
@@ -93,6 +92,10 @@ module TypeStation
       content_attributes[key].present?
     end
 
+    def page_fields?(key)
+      page_fields.include?(key)
+    end
+
     def content_attributes
       @content_attributes ||= Hash[self.contents.map {|c| [c.name, c]}]
     end
@@ -116,6 +119,10 @@ module TypeStation
     end
 
     private
+
+    def page_fields
+      @page_fields ||= self.class.fields.keys.map(&:to_sym)
+    end
 
     # Generates a slug based of the title give by the user
     def generate_slug

@@ -38,8 +38,10 @@ module TypeStation
 
     def build_content_methods
       page.content_attributes.each do |key, content_object|
-        define_singleton_method key do
-          ContentPresenter.new(content_object, @template)
+        unless page.page_fields? key
+          define_singleton_method key do
+            ContentPresenter.new(content_object, @template)
+          end
         end
       end
     end
