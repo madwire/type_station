@@ -106,7 +106,14 @@ body.ts-edit-mode {
     -webkit-transition: border 0.5s;
     transition: border 0.5s;
     &:hover { 
-      outline: 1px solid #428bca; 
+      outline: 2px solid #428bca; 
+      .ts-editable-button { display: block; }
+    }
+  }
+
+  .ts-editable-text {
+    &:hover { 
+      outline: 2px dashed #428bca; 
       .ts-editable-button { display: block; }
     }
   }

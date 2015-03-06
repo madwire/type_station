@@ -12,13 +12,16 @@ haveFontAwesome = ->
         break
   hasFontAwesome
 
+
+
 class window.TS.EditableText
   constructor: (@elements) ->
     @editor = new MediumEditor @elements,
       disableReturn: true
-      buttons: ['bold', 'italic', 'underline', 'anchor']
-      buttons: []
+      # buttons: ['bold', 'italic', 'underline', 'anchor']
+      disableToolbar: true
       anchorInputPlaceholder: 'Type a link'
+      imageDragging: false
       # anchorInputCheckboxLabel: true
       # checkLinkFormat: true
     @editor.deactivate()
@@ -46,6 +49,7 @@ class window.TS.EditableHtml
       buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'unorderedlist', 'orderedlist']
       buttonLabels: (if haveFontAwesome() then 'fontawesome' else null)
       anchorInputPlaceholder: 'Type a link'
+      imageDragging: false
       # anchorInputCheckboxLabel: true
       # checkLinkFormat: true
     @editor.deactivate()
