@@ -1,5 +1,6 @@
 require 'type_station/view_helpers'
 require 'type_station/helpers'
+require 'type_station/concerns'
 
 module TypeStation
   class Railtie < Rails::Railtie
