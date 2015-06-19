@@ -1,50 +1,17 @@
 module TypeStation
-  class PagePresenter < BasePresenter
+  class PagePresenter < Presenter
     presents :page
     delegate :to_param, :title, :path, :slug, :type, :template_name, :template_name?, :visible?, :redirect_to, :redirect?, :position, to: :page
 
-    def initialize(object, template)
-      super(object, template)
-      build_content_methods
-    end
+    form_field :title, type: :text, label: 'Title'
 
-    def edit_url
-      h.type_station.admin_page_url(page)
-    end
-
-    def new_url
-      h.type_station.admin_pages_url
-    end
-
-    def children(options = {})
-      children_criteria = page.children
-
-      options.each do |method, value|
-        children_criteria = children_criteria.send method, value
-      end
-
-      @children ||= children_criteria.map {|p| PagePresenter.new(p, @template)}
+    def children
+      TypeStation::Page.where(parent_id: page.id)
     end
 
     def parent
-      @parent ||= PagePresenter.new(page.parent, @template)
+      page.root
     end
 
-    def root
-      @root ||= PagePresenter.new(TypeStation::Page.root, @template)
-    end
-
-    private
-
-    def build_content_methods
-      page.content_attributes.each do |key, content_object|
-        unless page.page_fields? key
-          define_singleton_method key do
-            ContentPresenter.new(content_object, @template)
-          end
-        end
-      end
-    end
-    
   end
 end

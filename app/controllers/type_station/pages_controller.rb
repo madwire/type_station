@@ -1,14 +1,14 @@
 module TypeStation
   class PagesController < TypeStation::ApplicationController
     layout 'application'
-    
+
     def index
-      @page = present Page.root
+      @page = Page.root
       render_type_station
     end
 
     def show
-      @page = present Page.find_by_path(params[:path])
+      @page = Page.find_by_path(params[:path])
       render_type_station
     end
 
@@ -19,7 +19,7 @@ module TypeStation
         if @page.redirect?
           redirect_to @page.redirect_to
         else
-          if @page.template_name? 
+          if @page.template_name?
             render "pages/#{@page.template_name}"
           else
             raise TypeStation::PageTemplateNameUndefined
