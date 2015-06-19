@@ -17,4 +17,4 @@ gem "jquery-fileupload-rails"
 gem 'cloudinary'
 
 # To use debugger
-# gem 'debugger'
+gem 'byebug'

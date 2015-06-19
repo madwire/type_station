@@ -2,44 +2,42 @@
 <%= testing_helper %>
 <%= testing_again %>
 
-<%= ts_page(:team) %>
-
+<%- present @page, IndexPresenter do |p| %>
 <ul>
-  <%- @page.children(order_by: {position: :desc}).each do |page| %>
-    <li><%= link_to page.title, page.path %></li>
+  <%- @page.children(order_by: {position: :desc}).where( _type: 'TypeStation::Page').each do |page| %>
+
+    <%- present page do |sp| %>
+    <li>
+      <%= link_to page.title, page.path %>
+      <%= sp.edit content_tag: :button do %>
+        edit
+      <%- end %>
+      <%= sp.move :up, content_tag: :button do %>
+        move up
+      <%- end %>
+      <%= sp.move :down, content_tag: :button do %>
+        move down
+      <%- end %>
+      </li>
+
+    <%- end %>
   <%- end %>
 </ul>
 
-<div style='margin:40px;'>
-  <h1>
-<%= ts_editable @page, :title_b do %>
-  Hello
-<%- end %>
-<%= ts_new :page, @page, content_tag: :span do %>
+<h1>
+<%= p.create :page do %>
   <small>New page</small>
 <%- end %>
 </h1>
 
-<%= ts_link @page, :link_one, default: 'http://google.com' do %>
-  LINK
-<%- end %>
-
-<%= ts_link @page, :link_two do %>
-  LINK
-<%- end %>
-
-
-<%= ts_link @page, :link_one_b, default: 'http://google.com' do %>
-  LINK
-<%- end %>
-
-<%= ts_link @page, :link_two_b do %>
-  LINK
-<%- end %>
-
+<p>
+  <%= p.field :title_b do %>
+    Hello
+  <%- end %>
+</p>
 
 <h1>
-<%= ts_editable @page, :title_c do %>
+<%= p.field :title_c do %>
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -50,7 +48,7 @@
 </h1>
 
 <h1>
-<%= ts_editable @page, :title_c do %>
+<%= p.field :title_c do %>
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -61,7 +59,7 @@
 </h1>
 
 
-<%= ts_editable @page, :body, type: :html do %>
+<%= p.field :body, type: :html do %>
   <h4>Test</h4>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -71,17 +69,9 @@
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <%- end %>
 
-<%- @page.children.each do |page| %>
-  <%= ts_edit :page, page, content_tag: :div, fields: [{name: :title, type: 'text', label: 'Section name'}], data: {name: 'Section', default: {type: :hidden, name: :section}, moveable: true} do %>
-    <%= ts_editable page, :image_one, type: :image do |image| %>
-      <%= ts_image_tag(image.identifier || 'http://lorempixel.com/100/100/', width: 100, height: 100, class: 'test', crop: :fit) %>
-    <%- end %>
-  <%- end %>
-<%- end %>
 
 
-
-<%= ts_editable @page, :body_two, type: :html do %>
+<%= p.field :body_two, type: :html do %>
   <h4>Test</h4>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -91,41 +81,21 @@
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <%- end %>
 
-<%= ts_new :page, @page, content_tag: :div, fields: [{name: :title, type: 'text', label: 'Section name'}, {name: :redirect_to, type: 'text', label: 'Redirect'}, {name: :template_name, type: 'select', label: 'Section template', options: [['Cool', 'v'], ['Blah', 'b']]}, {name: :test_value, type: 'text', label: 'test value'}, {name: :another_test, type: 'textarea', label: 'Blah'}, {name: :tags, type: 'multiple_select', label: 'Tags', options: [['Cool', 'v'], ['Blah', 'b'], ['sdfsdfdf', 'dd']]}], data: {name: 'Section', default: {type: :hidden, name: :section}} do %>
-  <h1>New Section</h1>
-<%- end %>
 
-<ul>
-<%- ts_pages(:section, @page).each do |page| %>
-  <%= ts_edit :page, page, content_tag: :li, fields: [{name: :title, type: 'text', label: 'Section name'}, {name: :redirect_to, type: 'text', label: 'Redirect'}, {name: :template_name, type: 'select', label: 'Section template', options: [['Cool', 'v'], ['Blah', 'b']]}, {name: :test_value, type: 'text', label: 'test value'}, {name: :another_test, type: 'textarea', label: 'Blah'}, {name: :tags, type: 'multiple_select', label: 'Tags', options: [['Cool', 'v'], ['Blah', 'b'], ['sdfsdfdf', 'dd']]}], data: {name: 'Section', default: {type: :hidden, name: :section}, moveable: 'left_to_right'} do %>
-    <%= page.title %> - <%= page.test_value.value %> - <%= page.template_name %> - <%= page.another_test.value %> - <%= page.try(:tags).try(:value) %> - <%= page.redirect_to %></li>
-  <%- end %>
-<%- end %>
-</ul>
-
-<%= ts_new :page, @page, content_tag: :div, fields: [{name: :title, type: 'text', label: 'Team name'}], data: {name: 'Team member', default: {type: :hidden, name: :team}} do %>
-  <h1>New team member</h1>
-<%- end %>
-
-<ul>
-<%- ts_pages(:team, @page).each do |page| %>
-  <li><%= page.title %></li>
-<%- end %>
-</ul>
-
-<%= ts_editable @page, :image_one, type: :image do |image| %>
+<%= p.field :image_one, type: :image do |image| %>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
   consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <%= ts_image_tag(image.identifier || 'http://lorempixel.com/400/200/', width: 200, height: 200, class: 'test', crop: :fill) %>
-  <%= ts_image_tag(image.identifier || 'http://lorempixel.com/400/200/', width: 500, height: 200, class: 'test', crop: :fill) %>
-  <%= ts_image_tag(image.identifier || 'http://lorempixel.com/400/200/', width: 100, height: 200, class: 'test', crop: :fit) %>
+
+  <%= image.tag 'http://lorempixel.com/400/200/', width: 200, height: 200, class: 'test', crop: :fill %>
+  <%= image.tag 'http://lorempixel.com/400/200/', width: 500, height: 200, class: 'test', crop: :fill %>
+  <%= image.tag 'http://lorempixel.com/400/200/', width: 100, height: 200, class: 'test', crop: :fit %>
 
 
-  <%= ts_editable @page, :image_body, type: :html do %>
+  <%= p.field :image_body, type: :html do %>
     <h4>Test</h4>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -138,27 +108,56 @@
 <%- end %>
 
 
-<%= ts_collection @page, :image_one do || %>
-  
-  <li><%= ts_image_tag(image.identifier || 'http://lorempixel.com/400/200/', width: 200, height: 200, class: 'test', crop: :fill) %></li>
-
-
-  <%= ts_editable @page, :title_c do %>
-
-  <%- end %>
-<%- end %>
-
-<%= ts_editable @page, :file, type: :file do |file| %>
+<%= p.field :file, type: :file do |file| %>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
   consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <%= ts_link_to(file.identifier || 'http://lorempixel.com/400/200/', class: 'text', title: 'hello') do %>
+  <%= file.link 'http://lorempixel.com/400/200/', class: 'text', title: 'hello' do %>
     Hello
   <%- end %>
 <%- end %>
+
+
+<h1>
+<%= p.create :team do %>
+  <small>New Team</small>
+<%- end %>
+</h1>
+
+<ul>
+  <%- p.teams.each do |team| %>
+    <%- present team do |tp| %>
+    <li>
+      <h1>
+        <%= tp.field :first_name do %>
+          Untitiled
+        <%- end %>
+        <%= tp.field :last_name do %>
+          Untitiled
+        <%- end %>
+      </h1>
+
+      <%= tp.field :body, type: :html do %>
+        <h4>Test</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <%- end %>
+
+      <%= tp.field :image, type: :image do |image| %>
+        <%= image.tag 'http://lorempixel.com/400/200/', width: 200, height: 200, class: 'test', crop: :fill %>
+      <%- end %>
+
+    </li>
+    <%- end %>
+  <%- end %>
+</ul>
 
 </div>
 
@@ -226,9 +225,10 @@
 <br/>
 
 <h1>
-<%= ts_editable @page, :title_b do %>
+<%= p.field :title_b do %>
   Hello
 <%- end %>
 </h1>
+<%- end %>
 
 <%= ts_admin_toolbar(@page, templates: {index_other: 'Main', blank_index: 'Blank'}) %>
