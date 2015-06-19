@@ -3,10 +3,10 @@ module TypeStation
     include ::TypeStation::Concerns::PathGenerator
     include ::TypeStation::Concerns::Templatable
 
-    TYPES = [:hidden, :draft, :published]
+    STATUS = [:hidden, :draft, :published]
 
     field :redirect_to, type: String, default: nil
-    field :type, type: Symbol, default: TYPES.last # always published unless stated
+    field :status, type: Symbol, default: STATUS.last # always published unless stated
 
     # Validate that they is only one root page
     validates_each :parent_id do |model, attr, value|
@@ -24,9 +24,9 @@ module TypeStation
       return true if parent_id == nil # The root page is always visible
 
       if user.present?
-        [:draft, :published].include?(type)
+        [:draft, :published].include?(status)
       else
-        type == :published
+        status == :published
       end
     end
 
