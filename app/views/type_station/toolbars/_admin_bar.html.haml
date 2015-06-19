@@ -1,125 +1,20 @@
-#ts-admin-bar-edit
-  %button.ts-button.ts-button-primary 
-    %i.ion-compose
+- present model, ::TypeStation::AdminBarPresenter do |p|
+  #ts-admin-bar-edit
+    %button.ts-button.ts-button-primary
+      %i.ion-compose
 
-#ts-admin-bar.ts-hidden
-  %ul
-    %li.ts-brand
-      %i.ion-ios-barcode-outline
-      -# %i.ion-android-add.smaller
-    %li.ts-title
-      = text_field_tag 'page_title', model.try(:title), data: {ts_id: model.to_param, ts_url: model.edit_url, ts_key: :title, ts_data: {}}
-    %li.ts-actions
-      .ts-button-group
-        %button.ts-button.ts-options
-          %i.ion-android-settings
-        %button#ts-admin-bar-cancel.ts-button
-          %i.ion-android-close
-        %button#ts-admin-bar-save.ts-button.ts-button-primary 
-          %i.ion-android-done
-
-  #insert-content
+  #ts-admin-bar.ts-hidden
     %ul
-      %li.insert-new
-        .insert-icon
-          %i.ion-quote
-        .insert-name
-          Text
-      %li.insert-new
-        .insert-icon
-          %i.ion-code
-        .insert-name
-          Html
-      %li.insert-new
-        .insert-icon
-          %i.ion-images
-        .insert-name
-          Image
-      %li.insert-new
-        .insert-icon
-          %i.ion-paperclip
-        .insert-name
-          File
-      %li.insert-new
-        .insert-icon
-          %i.ion-android-map
-        .insert-name
-          Map
-      %li.insert-new
-        .insert-icon
-          %i.ion-android-clipboard
-        .insert-name
-          Form
-      %li.insert-new
-        .insert-icon
-          %i.ion-gear-a
-        .insert-name
-          Custom
-
-
-#ts-admin-bar-options
-  %ul
-    -#%li
-      = link_to "#!ts-edit-enable" do
-        %span.icon
-          %i.ion-ios-paper-outline
-        %span.text
-          .large-text
-            New page
-          .sub-text
-            Create a new root page
-    -#%li
-      = link_to "#!ts-edit-enable" do
-        %span.icon
-          %i.ion-ios-photos-outline
-        %span.text
-          .large-text
-            New sub page
-          .sub-text
-            Create a new sub page
-    -#%li
-      = link_to "#!ts-edit-enable" do
-        %span.icon
-          %i.ion-ios-trash-outline
-        %span.text
-          .large-text
-            Delete page
-          .sub-text
-            Permantely delete this page
-    -#%li
-      = link_to "#!ts-edit-enable" do
-        %span.icon
-          %i.ion-ios-shuffle
-        %span.text
-          .large-text
-            Change structure
-          .sub-text
-            Reorder the site's pages
-    %li#ts-page-settings
-      = link_to "#!ts-edit-enable" do
-        %span.icon
-          %i.ion-ios-settings
-        %span.text
-          .large-text
-            Settings
-          .sub-text
-            Manage page settings
-
-#ts-admin-bar-settings{data: {ts_url: model.edit_url}}
-  .vex-custom-field-wrapper
-    %label{for: "type"} Type
-    .vex-custom-input-wrapper
-      = select_tag "type", options_for_select({hidden: 'Hidden', draft: 'Draft', published: 'Published'}.map {|(k,v)| [v,k.to_s]}, model.try(:type).to_s)
-
-  - if options[:show_name].present?
-    .vex-custom-field-wrapper
-      %label{for: "name"} Name
-      .vex-custom-input-wrapper
-        = text_field_tag 'name', model.try(:name)
-  - if options[:templates].present?
-    .vex-custom-field-wrapper
-      %label{for: "template_name"} Template
-      .vex-custom-input-wrapper
-        = select_tag "template_name", options_for_select(options[:templates].map {|(k,v)| [v,k.to_s]}, model.try(:template_name))
-
-
+      %li.ts-brand
+        %i.ion-document-text
+      %li.ts-title
+        = p.field :title, content_tag: :p, id: 'ts-admin-bar-title' do
+          Untitled
+      %li.ts-actions
+        .ts-button-group
+          = p.edit content_tag: :button, id: 'ts-admin-bar-settings', class: 'ts-button ts-options' do
+            %i.ion-android-settings
+          %button#ts-admin-bar-cancel.ts-button
+            %i.ion-android-close
+          %button#ts-admin-bar-save.ts-button.ts-button-primary
+            %i.ion-android-done
