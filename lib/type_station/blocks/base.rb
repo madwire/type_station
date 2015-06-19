@@ -5,26 +5,46 @@ module TypeStation
     class Base
       include ActionView::Helpers::TagHelper
 
-      attr_reader :model, :key, :options
+      attr_reader :user, :model, :options
 
-      def initialize(model, key, options)
+      def initialize(user, model, options)
+        @user = user
         @model = model
-        @key = key
         @options = options
       end
 
       def render(content)
-        content_tag(tag_name, content.html_safe, class: tag_class, id: tag_id, data: tag_data)
+        if showifblock
+          render_edit(content)
+        else
+          render_default(content)
+        end
+      end
+
+      def data
+        {}
       end
 
       private
 
-      def tag_id
-        options[:id] || "#{model.to_param}-#{key}-#{SecureRandom.hex(3)}"
+      def render_edit(content)
+        content_tag(tag_name, content.html_safe, class: tag_class, id: tag_id, data: tag_data)
       end
 
-      def tag_data
-        {ts_id: tag_ts_id, ts_url: tag_ts_url, ts_key: key, ts_data: tag_ts_data}
+      def render_default(content)
+        if options[:stick].present?
+          content_tag(tag_name, content.html_safe, class: tag_class, id: tag_id)
+        else
+          content.html_safe
+        end
+      end
+
+      def showifblock
+        options[:if] || user
+      end
+
+      def tag_id
+        options[:id] || "#{model.to_param}-#{SecureRandom.hex(3)}"
       end
 
       def tag_name
@@ -32,21 +52,13 @@ module TypeStation
       end
 
       def tag_class
-        [['ts', self.class.to_s.demodulize.underscore.dasherize].join('-'), options[:class]].compact
+        options[:class]
       end
 
-      def tag_ts_data
-        (options[:data] || {})
+      def tag_data
+        { ts: data.merge({url: options[:url] }) }
       end
 
-      def tag_ts_id
-        model.to_param
-      end
-
-      def tag_ts_url
-        nil
-      end
-      
     end
   end
 end

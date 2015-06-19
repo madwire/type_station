@@ -21,16 +21,7 @@ module TypeStation
     def update_contents(params)
       params.each do |data|
         field, value, type = data[:field].to_sym, data[:value], data[:type].to_sym
-
-        if entity_fields?(field) && !changed.include?(field) #and not changed already
-          self[field] = value
-        else
-          if content?(field)
-            set(field, value)
-          else
-            contents.build(name: field, type: type).set(value)
-          end
-        end 
+        set(field, value, type)
       end
 
       save
@@ -41,11 +32,25 @@ module TypeStation
     end
 
     def get(key)
-      content_attributes[key].get
+      if entity_fields?(key)
+        self[key]
+      elsif content?(key)
+        content_attributes[key].get
+      else
+        nil
+      end
     end
 
-    def set(key, value)
-      content_attributes[key].set value
+    def set(key, value, type = 'text')
+      if entity_fields?(key) && !changed.include?(key) #and not changed already
+        self[key] = value
+      else
+        if content?(key)
+          content_attributes[key].set value
+        else
+          contents.build(name: key, type: type).set(value)
+        end
+      end
     end
 
     def content?(key)
