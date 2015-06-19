@@ -1,14 +1,14 @@
-class window.TS.Store
+class @TypeStation.Store
   constructor: (@id = null) ->
     @STORE = {}
   get: (key) -> @STORE[key]
   set: (key, value) -> @STORE[key] = value
 
-  each: (callback) -> 
+  each: (callback) ->
     for key, value of @STORE
       callback?(key, value)
 
-class window.TS.Model extends window.TS.Store
+class @TypeStation.Model extends @TypeStation.Store
 
   constructor: (@id = null) ->
     super
@@ -38,6 +38,6 @@ class window.TS.Model extends window.TS.Store
       dataType: 'json'
       contentType: 'application/json'
       data: JSON.stringify({contents: data})
-      success: (data) -> 
+      success: (data) ->
         self._reset() #reset model to a clean state
         callback(data)
