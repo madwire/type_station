@@ -1,6 +1,6 @@
 module TypeStation
   class ApplicationController < ActionController::Base
-    rescue_from TypeStation::PageNotFoundError, :with => :page_not_found
+    rescue_from ::TypeStation::PageNotFoundError, :with => :page_not_found
 
     private
 

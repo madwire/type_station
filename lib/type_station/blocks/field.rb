@@ -1,3 +1,5 @@
+require 'type_station/blocks/base'
+
 module TypeStation
   module Blocks
     class Field < Base
@@ -26,7 +28,7 @@ module TypeStation
         default_tag = options[:type] == :text ? :span : :div
         options[:content_tag] || default_tag
       end
-      
+
     end
   end
 end

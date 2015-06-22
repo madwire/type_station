@@ -1,3 +1,5 @@
+require 'type_station/blocks/base'
+
 module TypeStation
   module Blocks
     class Entity < Base
