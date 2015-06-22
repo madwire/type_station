@@ -1,7 +1,7 @@
 
 module TypeStation
   class DSL
-    
+
     def self.build(name, options = {}, &block)
       Page.new(name, options).call(&block)
     end
@@ -38,12 +38,12 @@ module TypeStation
         template_name = options[:template] || (parent ? title.parameterize('_') : 'index')
         redirect_to = options[:redirect_to]
         slug = options[:slug]
-        type = options[:type] || ::TypeStation::Page::TYPES.last
+        status = options[:status] || ::TypeStation::Page::STATUS.last
 
-        model = ::TypeStation::Page.create(title: title, name: name, template_name: template_name, type: type, redirect_to: redirect_to, parent_id: parent_id)
-        
+        model = ::TypeStation::Page.create(title: title, name: name, template_name: template_name, status: status, redirect_to: redirect_to, parent_id: parent_id)
+
         if slug.present?
-          model.slug = slug 
+          model.slug = slug
           model.save
         end
 
