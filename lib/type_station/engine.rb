@@ -3,6 +3,7 @@ require 'mongoid/tree'
 require 'jquery-fileupload-rails'
 require 'cloudinary'
 require 'ionicons-rails'
+require 'decorators'
 
 module TypeStation
   class Engine < ::Rails::Engine
@@ -14,10 +15,10 @@ module TypeStation
         helper = File.basename(helper_path, ".rb")
         ::TypeStation::ApplicationHelper.send :include, helper.classify.constantize
       end
+    end
 
-      Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |decorator_path|
-        require_dependency(decorator_path)
-      end
+    initializer 'load decorators' do
+      Decorators.register! Rails.root
     end
 
   end
