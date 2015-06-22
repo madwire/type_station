@@ -14,6 +14,11 @@ module TypeStation
         helper = File.basename(helper_path, ".rb")
         ::TypeStation::ApplicationHelper.send :include, helper.classify.constantize
       end
+
+      Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |decorator_path|
+        require_dependency(decorator_path)
+      end
     end
+
   end
 end
