@@ -27,7 +27,7 @@ module TypeStation
 
       module ClassMethods
 
-        def self.find_by_path(path)
+        def find_by_path(path)
           self.where(path: File.join('',path)).first
         end
 
