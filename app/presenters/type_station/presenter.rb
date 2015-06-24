@@ -47,7 +47,7 @@ module TypeStation
           content += content_presenter.value
         end
       else
-        content += h.capture(ContentPresenter.new(OpenStruct.new(options),h), &block)
+        content += h.capture(ContentPresenter.new(nil,h), &block)
       end
 
       TypeStation::Blocks::Field.new(h.type_station_current_user, @object, options).render(content)
