@@ -4,7 +4,11 @@ module TypeStation
 
     def tag(default, options = {})
       css_class = options.delete(:class) if options.include?(:class)
-      cl_image_tag((value.present? ? value['identifier'] : default), options.merge({class: ['ts-editable-image-tag', css_class], data: options}))
+      if value.present?
+        cl_image_tag(value['identifier'], options.merge({class: ['ts-editable-image-tag', css_class], data: options}))
+      else
+        image_tag(default, options.merge({class: ['ts-editable-image-tag', css_class], data: options}))
+      end
     end
 
     def link(default, html_options = nil, &block)
