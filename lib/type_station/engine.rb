@@ -3,6 +3,7 @@ require 'mongoid/tree'
 require 'jquery-fileupload-rails'
 require 'cloudinary'
 require 'ionicons-rails'
+require 'decorators'
 
 module TypeStation
   class Engine < ::Rails::Engine
@@ -15,5 +16,10 @@ module TypeStation
         ::TypeStation::ApplicationHelper.send :include, helper.classify.constantize
       end
     end
+
+    initializer 'load decorators' do
+      Decorators.register! Rails.root
+    end
+
   end
 end
