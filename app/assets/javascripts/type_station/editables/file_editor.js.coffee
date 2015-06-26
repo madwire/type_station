@@ -21,14 +21,14 @@ buildUploader = (editor) ->
     .bind 'cloudinarydone', (e, data) ->
       $element = $("##{$(this).data('elementId')}")
       for imageTag in $('.ts-editable-image-tag', $element)
-        $(imageTag).attr('src', $.cloudinary.url(data.result.public_id, $(imageTag).data()))
+        $(imageTag).attr('src', $.cloudinary.url(data.result.public_id, $.extend({}, {format: data.result.format}, $(imageTag).data())))
       for linkTag in $('.ts-editable-link-tag', $element)
-        $(linkTag).attr('href', $.cloudinary.url(data.result.public_id, {resource_type: 'raw'}))
+        $(linkTag).attr('href', $.cloudinary.url(data.result.public_id, {resource_type: 'raw', format: data.result.format}))
       $(this).prop('disabled', false)
       $('.ts-progress-bar').remove()
 
       model = editor.ts.getModel editor.data.url
-      model.set(editor.data.field, { field: editor.data.field, value: {identifier: data.result.public_id}, type: editor.data.type })
+      model.set(editor.data.field, { field: editor.data.field, value: {identifier: data.result.public_id, format: data.result.format}, type: editor.data.type })
 
   $label
     # .append $labelText
