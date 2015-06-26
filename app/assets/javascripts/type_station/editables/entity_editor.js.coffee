@@ -84,6 +84,7 @@ handleCreateEditEntity = (editor) ->
             message: 'Are you sure you want to save changes?'
             callback: (value) ->
               if value
+                self.ts.save()
                 for k,v of data
                   model.set(k, { field: k, value: v, type: self.fields[k].type })
                 model.save ->
@@ -101,11 +102,16 @@ handleCreateEditEntity = (editor) ->
           json['_type'] = self.data.type if self.data.type
 
           if valid
-            vex.dialog.confirm
-              message: 'Are you sure you want to create this?'
-              callback: (value) ->
-                if value
-                  createEntityCall(self.data.create_url, json)
+            if self.ts.isChanged()
+              vex.dialog.buttons.YES.text = 'Save'
+              vex.dialog.confirm
+                message: 'You have unsaved changes, Do you want to save them before creating this?'
+                callback: (value) ->
+                  if value
+                    self.ts.save()
+                    createEntityCall(self.data.create_url, json)
+            else
+              createEntityCall(self.data.create_url, json)
           else
             vex.dialog.buttons.YES.text = 'Ok'
             vex.dialog.alert
