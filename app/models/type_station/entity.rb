@@ -5,7 +5,7 @@ module TypeStation
     include ::Mongoid::Tree::Ordering
 
     # RELATIONS
-    embeds_many :contents, class_name: 'TypeStation::Content'
+    embeds_many :contents, class_name: 'TypeStation::Content', cascade_callbacks: true
 
     # FIELDS
     field :name, type: Symbol, default: :unnamed

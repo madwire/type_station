@@ -13,6 +13,8 @@ module TypeStation
     field :name, type: Symbol
     field :type, type: Symbol, default: TYPES.first
 
+    after_save :clean_up
+
     # VALIDATIONS
 
     validates :name, presence: true, uniqueness: { scope: :type }
@@ -48,5 +50,16 @@ module TypeStation
         raise 'Dont know who to covert value to array'
       end
     end
+
+    def clean_up
+      case type
+      when :image, :file
+        original = changes[type.to_s][0]
+        if original && original['identifier']
+          Cloudinary::Uploader.destroy(original['identifier'])
+        end
+      end
+    end
+
   end
 end
