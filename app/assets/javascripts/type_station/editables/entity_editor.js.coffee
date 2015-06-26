@@ -38,23 +38,26 @@ buildFields = (editor) ->
   modelValues = if editor.data.action == 'edit' then editor.data.values else defaultValues
 
   for field in fields
-    label = "<label for='#{field.name}'>#{field.label}</label>"
-    input = switch field.type
-      when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' value='#{if modelValues[field.name] then modelValues[field.name] else ''}' />"
-      when "textarea" then "<textarea name='#{field.name}' id='#{field.name}' rows='5'>#{if modelValues[field.name] then modelValues[field.name] else ''}</textarea>"
-      when "select"
-        select = "<select name='#{field.name}' id='#{field.name}'>"
-        for o in field.options
-          select += "<option value='#{o[1]}' #{if modelValues[field.name] == o[1] then 'selected'}>#{o[0]}</option>"
-        select += "</select>"
-        select
-      when "multiple_select"
-        select = "<select name='#{field.name}' id='#{field.name}' class='multiple_select' multiple>"
-        for o in field.options
-          select += "<option value='#{o[1]}' #{if modelValues[field.name] && modelValues[field.name].indexOf(o[1]) > -1 then 'selected' else ''}>#{o[0]}</option>"
-        select += "</select>"
-        select
-    inputs += "<div class'vex-custom-field-wrapper'>#{label}<div class='vex-custom-input-wrapper'>#{input}</div></div>"
+    if field.label
+      label = "<label for='#{field.name}'>#{field.label}</label>"
+      input = switch field.type
+        when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' value='#{if modelValues[field.name] then modelValues[field.name] else ''}' />"
+        when "textarea" then "<textarea name='#{field.name}' id='#{field.name}' rows='5'>#{if modelValues[field.name] then modelValues[field.name] else ''}</textarea>"
+        when "select"
+          select = "<select name='#{field.name}' id='#{field.name}'>"
+          for o in field.options
+            select += "<option value='#{o[1]}' #{if modelValues[field.name] == o[1] then 'selected'}>#{o[0]}</option>"
+          select += "</select>"
+          select
+        when "multiple_select"
+          select = "<select name='#{field.name}' id='#{field.name}' class='multiple_select' multiple>"
+          for o in field.options
+            select += "<option value='#{o[1]}' #{if modelValues[field.name] && modelValues[field.name].indexOf(o[1]) > -1 then 'selected' else ''}>#{o[0]}</option>"
+          select += "</select>"
+          select
+      inputs += "<div class'vex-custom-field-wrapper'>#{label}<div class='vex-custom-input-wrapper'>#{input}</div></div>"
+    else
+      inputs += "<input type='hidden' name='#{field.name}' id='#{field.name}' value='#{if modelValues[field.name] then modelValues[field.name] else ''}' />"
   inputs
 
 handleDeleteEntity = (editor) ->
