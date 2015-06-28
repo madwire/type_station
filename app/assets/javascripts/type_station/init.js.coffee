@@ -1,4 +1,4 @@
-window.TS = {}
+window.TS = {} unless window.TS
 window.TS.onSave = -> null unless window.TS['onSave']
 window.TS.onSaved = -> null unless window.TS['onSaved']
 
