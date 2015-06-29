@@ -50,7 +50,7 @@ module TypeStation
         content += h.capture(ContentPresenter.new(nil,h), &block)
       end
 
-      TypeStation::Blocks::Field.new(h.type_station_current_user, @object, options).render(content)
+      TypeStation::Blocks::Field.new(h.type_station_authorise, @object, options).render(content)
     end
 
     private
@@ -64,7 +64,7 @@ module TypeStation
       options[:url] = h.type_station.admin_entity_url(@object)
       options[:create_url] = h.type_station.admin_entities_url
 
-      TypeStation::Blocks::Entity.new(h.type_station_current_user, @object, options).render(content)
+      TypeStation::Blocks::Entity.new(h.type_station_authorise, @object, options).render(content)
     end
 
   end

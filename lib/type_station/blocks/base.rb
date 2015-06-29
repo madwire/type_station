@@ -5,10 +5,10 @@ module TypeStation
     class Base
       include ActionView::Helpers::TagHelper
 
-      attr_reader :user, :model, :options
+      attr_reader :authorise, :model, :options
 
-      def initialize(user, model, options)
-        @user = user
+      def initialize(authorise, model, options)
+        @authorise = authorise
         @model = model
         @options = options
       end
@@ -40,7 +40,7 @@ module TypeStation
       end
 
       def showifblock
-        options[:if] || user
+        options[:if] || authorise
       end
 
       def tag_id
