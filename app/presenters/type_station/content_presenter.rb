@@ -9,7 +9,7 @@ module TypeStation
 
     def link(default, html_options = nil, &block)
       css_class = html_options.delete(:class) if html_options.include?(:class)
-      content_tag(:a, nil, html_options.merge({class: ['ts-editable-link-tag', css_class], href: (value.present? ? cloudinary_url(value['identifier']) : default)}), &block)
+      content_tag(:a, nil, html_options.merge({class: ['ts-editable-link-tag', css_class], href: (value.present? ? cloudinary_url(value['identifier'], format: value['format']) : default)}), &block)
     end
 
     def value
