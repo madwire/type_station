@@ -30,7 +30,7 @@ module TypeStation
 
       def model_values
         values = options[:fields].map do |field|
-          content = model.try(field[:name])
+          content = model.get(field[:name])
           value = content.is_a?(String) || content.is_a?(Symbol) ? content.to_s : content.try(:value)
           if value
             [field[:name], value]
