@@ -1,3 +1,23 @@
+setCookie = (cname, cvalue, exdays) ->
+  d = new Date
+  d.setTime d.getTime() + exdays * 24 * 60 * 60 * 1000
+  expires = 'expires=' + d.toUTCString()
+  document.cookie = cname + '=' + cvalue + '; ' + expires
+  return
+
+getCookie = (cname) ->
+  name = cname + '='
+  ca = document.cookie.split(';')
+  i = 0
+  while i < ca.length
+    c = ca[i]
+    while c.charAt(0) == ' '
+      c = c.substring(1)
+    if c.indexOf(name) == 0
+      return c.substring(name.length, c.length)
+    i++
+  ''
+
 buildEditor = (ts, $el, data) ->
   if data.action
     switch data.action
@@ -22,7 +42,10 @@ class @TypeStation
       data = $el.data('ts')
       self.editors.set $el.attr('id'), buildEditor(self, $el, data)
 
+    @enable() if getCookie("ts-enabled") == '1'
+
   enable: ->
+    setCookie('ts-enabled', 1, 1)
     $('body').addClass('ts-enable')
 
     @callbacks['onEnable']() if @callbacks['onEnable']
@@ -35,6 +58,7 @@ class @TypeStation
         return
 
   disable: ->
+    setCookie('ts-enabled', 0, 1)
     $('body').removeClass('ts-enable')
 
     @callbacks['onDisable']() if @callbacks['onDisable']
