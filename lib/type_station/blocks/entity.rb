@@ -10,7 +10,7 @@ module TypeStation
           id: options[:model_id] || model.to_param,
           type: (options[:type] || model._type).to_s.classify,
           parent_id: options[:model_parent_id] || model.parent_id.to_s,
-          fields: options[:fields],
+          fields: model_fields,
           values: model_values,
           create_url: options[:create_url],
           position: model.position,
@@ -26,6 +26,16 @@ module TypeStation
 
       def render_default(content)
         nil
+      end
+
+      def model_fields
+        lambda_binging = Struct.new(:model).new(model)
+        options[:fields].map do |field|
+          if field[:options] && field[:options].is_a?(Proc)
+            field[:options] = lambda_binging.instance_exec(&field[:options])
+          end
+          field
+        end
       end
 
       def model_values
