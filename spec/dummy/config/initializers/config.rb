@@ -14,10 +14,10 @@ TypeStation.configure do |config|
     true
   end
 
-  config.authorise_with = Proc.new {}
+  config.authorise_with = Proc.new { true }
 
   config.current_user = Proc.new do
     {}
-  end  
+  end
 
 end

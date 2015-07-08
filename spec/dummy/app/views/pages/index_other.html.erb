@@ -9,7 +9,7 @@
     <%- present page do |sp| %>
     <li>
       <%= link_to page.title, page.path %>
-      <%= sp.edit content_tag: :button do %>
+      <%= sp.edit content_tag: :button, presenter: IndexPresenter do %>
         edit
       <%- end %>
       <%= sp.move :up, content_tag: :button do %>
@@ -25,7 +25,7 @@
 </ul>
 
 <h1>
-<%= p.create :page do %>
+<%= p.create :page, presenter: IndexPresenter do %>
   <small>New page</small>
 <%- end %>
 </h1>
