@@ -75,8 +75,12 @@ handleMoveEntity = (editor) ->
 handleCreateEditEntity = (editor) ->
   self = editor
   vex.dialog.buttons.YES.text = if self.data.action == 'edit' then 'Save' else 'Create'
+
+  vex_message_type = if self.data.type == 'TypeStation::Page' then 'Page' else self.data.type
+  vex_message = "#{if self.data.action == 'edit' then 'Edit' else 'Create'} #{vex_message_type || 'Page'}"
+
   vex.dialog.open
-    message: "#{if self.data.action == 'edit' then 'Edit' else 'Create'} #{self.data.type || 'Page'}"
+    message: vex_message
     input: buildFields(self)
     afterOpen: ($vexContent) ->
       $("select.multiple_select", $vexContent).chosen()
