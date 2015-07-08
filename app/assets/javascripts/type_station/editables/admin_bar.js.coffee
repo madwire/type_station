@@ -32,7 +32,6 @@ class @TypeStation.AdminBarEditor
     @ts.editors.set $titleEditor.attr('id'), editor
 
     $editEditor = $('#ts-admin-bar-settings')
-    console.log $editEditor.data('ts')
     editor = new TypeStation.EntityEditor(@ts, $editEditor, $editEditor.data('ts'))
     @ts.editors.set $editEditor.attr('id'), editor
 
