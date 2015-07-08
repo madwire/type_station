@@ -23,7 +23,8 @@ createEntityCall = (url, data) ->
     dataType: 'json'
     contentType: 'application/json'
     data: JSON.stringify(data)
-    success: (data, status) -> window.location.reload()
+    success: (data, status) ->
+      window.location.reload()
 
 
 buildFields = (editor) ->
@@ -39,7 +40,7 @@ buildFields = (editor) ->
 
   for field in fields
     if field.label
-      label = "<label for='#{field.name}'>#{field.label}</label>"
+      label = "<label for='#{field.name}'>#{if field.required then '*' else ''}#{field.label}</label>"
       input = switch field.type
         when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' value='#{if modelValues[field.name] then modelValues[field.name] else ''}' />"
         when "textarea" then "<textarea name='#{field.name}' id='#{field.name}' rows='5'>#{if modelValues[field.name] then modelValues[field.name] else ''}</textarea>"
@@ -98,7 +99,10 @@ handleCreateEditEntity = (editor) ->
           valid = true
           for k,v of data
             field = self.fields[k]
-            valid = if valid && field.required then (v.length > 0) else true
+            if valid
+              valid = if field.required then (v.length > 0) else true
+            else
+              break
             contents.push({ field: k, value: v, type: field.type })
           json['contents'] = contents
           json['parent_id'] = self.data.parent_id if self.data.parent_id
