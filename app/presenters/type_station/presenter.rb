@@ -18,7 +18,7 @@ module TypeStation
     end
 
     def edit(user_options = {}, &block)
-      options = { action: :edit }.merge(user_options)
+      options = { action: :edit, presenter: self.class }.merge(user_options)
       entity_block(h.capture(&block), options)
     end
 
