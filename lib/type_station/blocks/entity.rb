@@ -41,7 +41,7 @@ module TypeStation
       def model_values
         values = options[:fields].map do |field|
           content = model.get(field[:name])
-          value = content.is_a?(String) || content.is_a?(Symbol) ? content.to_s : content.try(:value)
+          value = content.is_a?(String) || content.is_a?(Symbol) || content.is_a?(Array) ? content.to_s : content.try(:value)
           if value
             [field[:name], value]
           else
