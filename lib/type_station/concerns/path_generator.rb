@@ -48,8 +48,10 @@ module TypeStation
 
       def rebuild_child_paths
         self.children.each do |child|
-          child.send :rebuild_path
-          child.save
+          if child.respond_to?(:rebuild_path)
+            child.send :rebuild_path
+            child.save
+          end
         end
       end
 
