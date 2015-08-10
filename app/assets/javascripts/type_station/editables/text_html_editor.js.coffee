@@ -12,6 +12,8 @@ haveFontAwesome = ->
         break
   hasFontAwesome
 
+isIE = -> !!(navigator.userAgent.indexOf('MSIE') != -1 || navigator.appVersion.indexOf('Trident/') > 0)
+
 
 class @TypeStation.TextHtmlEditor
   constructor: (@ts, @$el, @data) ->
@@ -46,7 +48,8 @@ class @TypeStation.TextHtmlEditor
   enable: ->
     @editor.activate()
     self = @
-    @$el.on 'input', ->
+    eventName = if isIE() then 'keyup' else 'input'
+    @$el.on eventName, ->
       model = self.ts.getModel self.data.url
       if $(@).is(':input')
         model.set(self.data.field, { field: self.data.field, value: $(@).val(), type: self.data.type })
