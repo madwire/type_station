@@ -8,6 +8,7 @@ module TypeStation
         field :title, type: String, default: 'Untitled'
         field :slug, type: String
         field :path, type: String
+        field :old_paths, type: Array, default: []
 
         # VALIDATIONS
 
@@ -28,9 +29,9 @@ module TypeStation
       module ClassMethods
 
         def find_by_path(path)
-          self.where(path: File.join('',path)).first
+          search_path = File.join('',path)
+          self.or({path: search_path}, {:old_paths.in  => [search_path]}).first
         end
-
       end
 
       private
@@ -43,7 +44,15 @@ module TypeStation
 
       # Rebuild a path based of a ancestors slugs
       def rebuild_path
+        store_old_path
         self.path = root? ? "/" : self.ancestors_and_self.collect(&:slug).join('/')
+      end
+
+      def store_old_path
+        if self.path.present?
+          self.old_paths << self.path
+          self.old_paths.uniq
+        end
       end
 
       def rebuild_child_paths
