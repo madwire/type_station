@@ -8,7 +8,7 @@
 
     <%- present page do |sp| %>
     <li>
-      <%= link_to page.title, page.path %>
+      <%= link_to page.title, 'type_station' + page.path %>
       <%= sp.edit content_tag: :button, presenter: IndexPresenter do %>
         edit
       <%- end %>
