@@ -8,7 +8,7 @@ PATH
       haml-rails (~> 0.0, >= 0.7.0)
       ionicons-rails (~> 2.0)
       jquery-fileupload-rails (~> 0.4, >= 0.4.3)
-      mongoid (~> 4.0, >= 4.0.0)
+      mongoid (>= 4.0, < 6.0)
       mongoid-tree (~> 2.0, >= 2.0.0)
       rails (~> 4.2, >= 4.2.0)
 

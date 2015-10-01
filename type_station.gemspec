@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", '~> 4.2', ">= 4.2.0"
-  s.add_dependency "mongoid", '~> 4.0', ">= 4.0.0"
+  s.add_dependency "mongoid", '< 6.0', '>= 4.0'
   s.add_dependency "mongoid-tree", '~> 2.0', ">= 2.0.0"
   s.add_dependency "jquery-fileupload-rails", '~> 0.4', ">= 0.4.3"
   s.add_dependency 'cloudinary', '~> 1.0', ">= 1.0.81"
