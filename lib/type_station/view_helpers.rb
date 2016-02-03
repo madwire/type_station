@@ -34,7 +34,9 @@ module TypeStation
     end
 
     def type_station_toolbar(id, model, partial_name, options = {})
-      type_station_template([id, 'template'].join('-'), sanitize(render(partial: "type_station/toolbars/#{partial_name}", locals: {model: model, options: options})).html_safe)
+      tags = Rails::Html::WhiteListSanitizer.allowed_tags + ['button']
+      attributes = Rails::Html::WhiteListSanitizer.allowed_tags + ['data-ts']
+      type_station_template([id, 'template'].join('-'), sanitize(render(partial: "type_station/toolbars/#{partial_name}", locals: {model: model, options: options}), attributes: attributes).html_safe)
     end
 
     def type_station_template(id, content, type = 'text/x-type-station-template')
