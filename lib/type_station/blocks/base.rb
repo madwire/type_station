@@ -1,4 +1,5 @@
 require 'action_view/helpers/tag_helper'
+require "rails/html/sanitizer"
 
 module TypeStation
   module Blocks
@@ -8,12 +9,15 @@ module TypeStation
       attr_reader :authorise, :model, :options
 
       def initialize(authorise, model, options)
+        @sanitizer = Rails::Html::WhiteListSanitizer.new
         @authorise = authorise
         @model = model
         @options = options
       end
 
-      def render(content)
+      def render(raw_content)
+        content = @sanitizer.sanitize(raw_content)
+
         if showifblock
           render_edit(content)
         else

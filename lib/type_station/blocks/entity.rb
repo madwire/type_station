@@ -41,8 +41,9 @@ module TypeStation
       def model_values
         values = options[:fields].map do |field|
           content = model.get(field[:name])
-          value = content.respond_to?(:value) ? content.value : content.to_s
-          if value
+          raw_value = content.respond_to?(:value) ? content.value : content.to_s
+          if raw_value
+            value = @sanitizer.sanitize(raw_value)
             [field[:name], value]
           else
             nil
