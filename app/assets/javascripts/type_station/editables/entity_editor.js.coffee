@@ -42,16 +42,17 @@ buildFields = (editor) ->
     if field.label
       label = "<label for='#{field.name}'>#{if field.required then '*' else ''}#{field.label}</label>"
       input = switch field.type
-        when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' value='#{if modelValues[field.name] then modelValues[field.name] else ''}' />"
-        when "textarea" then "<textarea name='#{field.name}' id='#{field.name}' rows='5'>#{if modelValues[field.name] then modelValues[field.name] else ''}</textarea>"
+        when "text" then "<input type='text' name='#{field.name}' id='#{field.name}' value='#{if modelValues[field.name] then modelValues[field.name] else ''}' #{if field.required then 'required' else ''} />"
+        when "textarea" then "<textarea name='#{field.name}' id='#{field.name}' rows='5' #{if field.required then 'required' else ''}>#{if modelValues[field.name] then modelValues[field.name] else ''}</textarea>"
+        when "html" then "<textarea name='#{field.name}' id='#{field.name}' rows='5' #{if field.required then 'required' else ''}>#{if modelValues[field.name] then modelValues[field.name] else ''}</textarea>"
         when "select"
-          select = "<select name='#{field.name}' id='#{field.name}'>"
+          select = "<select name='#{field.name}' id='#{field.name}' #{if field.required then 'required' else ''}>"
           for o in field.options
             select += "<option value='#{o[1]}' #{if modelValues[field.name] == o[1] then 'selected'}>#{o[0]}</option>"
           select += "</select>"
           select
         when "multiple_select"
-          select = "<select name='#{field.name}' id='#{field.name}' class='multiple_select' multiple>"
+          select = "<select name='#{field.name}' id='#{field.name}' class='multiple_select' multiple #{if field.required then 'required' else ''}>"
           for o in field.options
             select += "<option value='#{o[1]}' #{if modelValues[field.name] && modelValues[field.name].indexOf(o[1]) > -1 then 'selected' else ''}>#{o[0]}</option>"
           select += "</select>"
@@ -88,15 +89,39 @@ handleCreateEditEntity = (editor) ->
       if data
         if self.data.action == 'edit'
           model = self.ts.getModel self.data.url
-          vex.dialog.confirm
-            message: 'Are you sure you want to save changes?'
-            callback: (value) ->
-              if value
-                self.ts.save()
-                for k,v of data
-                  model.set(k, { field: k, value: v, type: self.fields[k].type })
-                model.save ->
-                  window.location.reload()
+          valid = true
+          for k,v of data
+            field = self.fields[k]
+            if valid
+              switch field.type
+                when 'html'
+                  valid = true
+                else
+                  try
+                    valid = !$(v).is('*')
+                  catch
+                    valid = false
+
+            else
+              break
+
+          if valid
+            vex.dialog.confirm
+              message: 'Are you sure you want to save changes?'
+              callback: (value) ->
+                if value
+                  self.ts.save()
+                  for k,v of data
+                    model.set(k, { field: k, value: v, type: self.fields[k].type })
+                  model.save ->
+                    window.location.reload()
+          else
+            vex.dialog.buttons.YES.text = 'Ok'
+            vex.dialog.alert
+              message: 'Unable to save: Please make sure all required fields are completed'
+              callback: ->
+                self.$el.click()
+
         else
           json = {}
           contents = []
@@ -104,7 +129,13 @@ handleCreateEditEntity = (editor) ->
           for k,v of data
             field = self.fields[k]
             if valid
-              valid = if field.required then (v.length > 0) else true
+              switch field.type
+                when 'html'
+                  valid = true
+                else
+                  console.log v
+                  console.log !$(v).is('*')
+                  valid = !$(v).is('*')
             else
               break
             contents.push({ field: k, value: v, type: field.type })
@@ -126,7 +157,7 @@ handleCreateEditEntity = (editor) ->
           else
             vex.dialog.buttons.YES.text = 'Ok'
             vex.dialog.alert
-              message: 'Please fill in all required fields'
+              message: 'Unable to save: Please make sure all required fields are completed'
               callback: ->
                 self.$el.click()
 
