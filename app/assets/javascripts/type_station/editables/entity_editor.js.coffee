@@ -97,11 +97,13 @@ handleCreateEditEntity = (editor) ->
                 when 'html'
                   valid = true
                 else
-                  try
-                    valid = !$(v).is('*')
-                  catch
-                    valid = false
-
+                  check_value = v.replace(/[\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
+                  if check_value.length > 0
+                    if check_value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
+                      try
+                        valid = !$(check_value).is('*')
+                      catch
+                        valid = false
             else
               break
 
@@ -133,9 +135,13 @@ handleCreateEditEntity = (editor) ->
                 when 'html'
                   valid = true
                 else
-                  console.log v
-                  console.log !$(v).is('*')
-                  valid = !$(v).is('*')
+                  check_value = v.replace(/[\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
+                  if check_value.length > 0
+                    if check_value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
+                      try
+                        valid = !$(check_value).is('*')
+                      catch
+                        valid = false
             else
               break
             contents.push({ field: k, value: v, type: field.type })
