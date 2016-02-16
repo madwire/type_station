@@ -97,7 +97,7 @@ handleCreateEditEntity = (editor) ->
                 when 'html'
                   valid = true
                 else
-                  check_value = v.replace(/[\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
+                  check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
                   if check_value.length > 0
                     if check_value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
                       try
@@ -120,7 +120,7 @@ handleCreateEditEntity = (editor) ->
           else
             vex.dialog.buttons.YES.text = 'Ok'
             vex.dialog.alert
-              message: 'Unable to save: Please make sure all required fields are completed'
+              message: 'Unable to save: Invalid inputs please check and try again'
               callback: ->
                 self.$el.click()
 
@@ -135,7 +135,7 @@ handleCreateEditEntity = (editor) ->
                 when 'html'
                   valid = true
                 else
-                  check_value = v.replace(/[\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
+                  check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
                   if check_value.length > 0
                     if check_value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
                       try
@@ -163,7 +163,7 @@ handleCreateEditEntity = (editor) ->
           else
             vex.dialog.buttons.YES.text = 'Ok'
             vex.dialog.alert
-              message: 'Unable to save: Please make sure all required fields are completed'
+              message: 'Unable to save: Invalid inputs please check and try again'
               callback: ->
                 self.$el.click()
 
