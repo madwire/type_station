@@ -41,7 +41,7 @@ module TypeStation
       if content_attribute.present?
         content_presenter = ContentPresenter.new(content_attribute, h)
 
-        if content_presenter.value.is_a? Hash
+        if content_presenter.value_is_hash?
           content += h.capture(content_presenter, &block)
         else
           content += content_presenter.value

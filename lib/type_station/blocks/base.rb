@@ -15,9 +15,7 @@ module TypeStation
         @options = options
       end
 
-      def render(raw_content)
-        content = @sanitizer.sanitize(raw_content)
-
+      def render(content)
         if showifblock
           render_edit(content)
         else
