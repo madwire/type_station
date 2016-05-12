@@ -1,11 +1,11 @@
 test:
-  sessions:
+  clients:
     default:
       database: type_station_test
       hosts:
         - db:27017
 development:
-  sessions:
+  clients:
     default:
       database: type_station_development
       hosts:
