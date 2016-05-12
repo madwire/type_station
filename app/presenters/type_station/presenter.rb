@@ -58,7 +58,7 @@ module TypeStation
     def entity_block(content, options = {})
       unless options[:fields]
         presenter_klass = options[:presenter] || "#{(options[:type] || @object._type).to_s.classify}Presenter".constantize
-        options[:fields] = presenter_klass.form_fields || []
+        options[:fields] = presenter_klass.form_fields.deep_dup || []
       end
 
       options[:url] = h.type_station.admin_entity_url(@object)
