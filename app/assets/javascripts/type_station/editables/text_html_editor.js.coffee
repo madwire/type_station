@@ -42,11 +42,11 @@ class @TypeStation.TextHtmlEditor
         # checkLinkFormat: true
 
     @editor = new MediumEditor @$el, editorOptions
-    @editor.deactivate()
+    @editor.destroy()
     @$el.attr('data-ts-id', @data.id).attr('data-ts-field', @data.field)
 
   enable: ->
-    @editor.activate()
+    @editor.setup()
     self = @
     eventName = if isIE() then 'keyup' else 'input'
     @$el.on eventName, ->
@@ -59,5 +59,5 @@ class @TypeStation.TextHtmlEditor
         updateGlobalValue($(@), $(@).html())
 
   disable: ->
-    @editor.deactivate()
+    @editor.destroy()
     @$el.off 'input'
