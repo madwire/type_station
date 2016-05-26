@@ -18,7 +18,8 @@ module TypeStation
       def data_options
         case options[:type]
         when :image, :file
-          { cloudinary: (Cloudinary::Utils.sign_request(Cloudinary::Uploader.build_upload_params({}), {}) rescue {}) }
+          upload_option = options[:private].present? ? { type: 'private' } : {}
+          { cloudinary: (Cloudinary::Utils.sign_request(Cloudinary::Uploader.build_upload_params(upload_option), {}) rescue {}) }
         else
           nil
         end

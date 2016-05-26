@@ -23,7 +23,11 @@ buildUploader = (editor) ->
       for imageTag in $('.ts-editable-image-tag', $element)
         $(imageTag).attr('src', $.cloudinary.url(data.result.public_id, $.extend({}, {format: data.result.format}, $(imageTag).data())))
       for linkTag in $('.ts-editable-link-tag', $element)
-        $(linkTag).attr('href', $.cloudinary.url(data.result.public_id, {resource_type: 'raw', format: data.result.format}))
+        if data.result.type == "private"
+          url = $(linkTag).data('download-url').replace('IDENTIFIER', data.result.public_id).replace('FORMAT', data.result.format)
+          $(linkTag).attr('href', url)
+        else
+          $(linkTag).attr('href', $.cloudinary.url(data.result.public_id, {resource_type: 'raw', format: data.result.format}))
       $(this).prop('disabled', false)
       $('.ts-progress-bar').remove()
 

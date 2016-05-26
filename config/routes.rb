@@ -9,5 +9,7 @@ TypeStation::Engine.routes.draw do
     end
   end
 
+  get 'file-download/:identifier' => 'file#download', as: :download
+
   match "*path", to: "pages#show", via: :all
 end

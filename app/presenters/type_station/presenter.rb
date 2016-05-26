@@ -39,7 +39,7 @@ module TypeStation
       content_attribute = @object.get name
 
       if content_attribute.present?
-        content_presenter = ContentPresenter.new(content_attribute, h)
+        content_presenter = ContentPresenter.new(content_attribute, h, options)
 
         if content_presenter.value_is_hash?
           content += h.capture(content_presenter, &block)
@@ -47,7 +47,7 @@ module TypeStation
           content += content_presenter.value
         end
       else
-        content += h.capture(ContentPresenter.new(nil,h), &block)
+        content += h.capture(ContentPresenter.new(nil,h, options), &block)
       end
 
       TypeStation::Blocks::Field.new(h.type_station_authorise, @object, options).render(content)

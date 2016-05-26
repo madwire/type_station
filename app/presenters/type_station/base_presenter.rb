@@ -1,9 +1,10 @@
 module TypeStation
   class BasePresenter
 
-    def initialize(object, template)
+    def initialize(object, template, options = {})
       @object = object
       @template = template
+      @options = options
     end
 
     private
@@ -21,10 +22,10 @@ module TypeStation
     def markdown(text)
       Redcarpet.new(text, :hard_wrap, :filter_html, :autolink).to_html.html_safe
     end
-    
+
     def method_missing(*args, &block)
       @template.send(*args, &block)
     end
-    
+
   end
 end

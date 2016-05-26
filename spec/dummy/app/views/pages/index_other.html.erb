@@ -121,6 +121,12 @@
   <%- end %>
 <%- end %>
 
+<%= p.field :private_file, type: :file, private: true do |file| %>
+  <%= file.link 'http://lorempixel.com/400/200/', class: 'text', title: 'hello' do %>
+    Private
+  <%- end %>
+<%- end %>
+
 
 <h1>
 <%= p.create :team do %>
