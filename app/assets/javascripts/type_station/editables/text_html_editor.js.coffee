@@ -1,16 +1,7 @@
-hasFontAwesome = false
 updateGlobalValue = ($el, value) ->
   match = "[data-ts-field=#{$el.data('ts-field')}][data-ts-id=#{$el.data('ts-id')}]"
   $("input#{match}").not($el).val(value)
   $("#{match}").not(':input').not($el).html(value)
-
-haveFontAwesome = ->
-  unless hasFontAwesome
-    for k, stylesheet of document.styleSheets
-      if stylesheet?.href?.match(/font-awesome/g)
-        hasFontAwesome = true
-        break
-  hasFontAwesome
 
 isIE = -> !!(navigator.userAgent.indexOf('MSIE') != -1 || navigator.appVersion.indexOf('Trident/') > 0)
 
@@ -23,23 +14,15 @@ class @TypeStation.TextHtmlEditor
 
       editorOptions =
         disableReturn: true
-        # buttons: ['bold', 'italic', 'underline', 'anchor']
-        disableToolbar: true
-        anchorInputPlaceholder: 'Type a link'
+        toolbar: false
         imageDragging: false
-        # anchorInputCheckboxLabel: true
-        # checkLinkFormat: true
     else
       @$el.addClass('ts-block')
 
       editorOptions =
-        #buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'unorderedlist', 'orderedlist', 'justifyLeft', 'justifyFull', 'justifyCenter', 'justifyRight']
-        buttons: ['bold', 'italic', 'underline', 'anchor', 'header1', 'header2', 'unorderedlist', 'orderedlist']
-        buttonLabels: (if haveFontAwesome() then 'fontawesome' else null)
-        anchorInputPlaceholder: 'Type a link'
+        toolbar:
+          buttons: ['bold', 'italic', 'underline', 'anchor', 'h1', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'removeFormat']
         imageDragging: false
-        # anchorInputCheckboxLabel: true
-        # checkLinkFormat: true
 
     @editor = new MediumEditor @$el, editorOptions
     @editor.destroy()
