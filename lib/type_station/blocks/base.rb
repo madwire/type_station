@@ -42,7 +42,11 @@ module TypeStation
       end
 
       def showifblock
-        options[:if] || authorise
+        if options.has_key? :if
+          options[:if]
+        else
+          authorise
+        end
       end
 
       def tag_id

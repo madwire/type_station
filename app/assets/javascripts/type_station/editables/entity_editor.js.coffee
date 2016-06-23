@@ -1,3 +1,5 @@
+isArray = Array.isArray || ( arr ) -> return {}.toString.call( arr ) is '[object Array]'
+
 moveEntityCall = (url, direction) ->
   $.ajax
     type: "PATCH"
@@ -52,7 +54,9 @@ buildFields = (editor) ->
           select += "</select>"
           select
         when "multiple_select"
-          select = "<select name='#{field.name}' id='#{field.name}' class='multiple_select' multiple #{if field.required then 'required' else ''}>"
+          # Add a hidden field so we can submit the field when it's empty
+          select = "<input type='hidden' value='' name='#{field.name}' />"
+          select += "<select name='#{field.name}' id='#{field.name}' class='multiple_select' multiple #{if field.required then 'required' else ''}>"
           for o in field.options
             select += "<option value='#{o[1]}' #{if modelValues[field.name] && modelValues[field.name].indexOf(o[1]) > -1 then 'selected' else ''}>#{o[0]}</option>"
           select += "</select>"
@@ -97,13 +101,15 @@ handleCreateEditEntity = (editor) ->
                 when 'html'
                   valid = true
                 else
-                  check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
-                  if check_value.length > 0
-                    if check_value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
-                      try
-                        valid = !$(check_value).is('*')
-                      catch
-                        valid = false
+                  # Check if its an array of values (for multiple_select)
+                  if isArray v
+                    for val in v
+                      check_value = val.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
+                      valid = valid && checkValue check_value, field
+                  else
+                    check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
+                    valid = checkValue check_value, field
+
             else
               break
 
@@ -135,13 +141,14 @@ handleCreateEditEntity = (editor) ->
                 when 'html'
                   valid = true
                 else
-                  check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
-                  if check_value.length > 0
-                    if check_value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
-                      try
-                        valid = !$(check_value).is('*')
-                      catch
-                        valid = false
+                  # Check if its an array of values (for multiple_select)
+                  if isArray v
+                    for val in v
+                      check_value = val.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
+                      valid = valid && checkValue check_value
+                  else
+                    check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
+                    valid = checkValue check_value
             else
               break
             contents.push({ field: k, value: v, type: field.type })
@@ -167,7 +174,21 @@ handleCreateEditEntity = (editor) ->
               callback: ->
                 self.$el.click()
 
+checkValue = (value, field) ->
+  # If the field is a multiple select, we want to allow for an empty string so the field can be "cleared"
+  if field.type == 'multiple_select'
+    testValue value
+  else
+    if value.length > 0
+      if value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
+        testValue value
 
+testValue = (value) ->
+  try
+    # Check if there is html (valid jquery selector) in the value? I think.
+    !$(value).is('*')
+  catch
+    false
 
 class @TypeStation.EntityEditor
   constructor: (@ts, @$el, @data) ->

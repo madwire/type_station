@@ -28,12 +28,14 @@ class @TypeStation.AdminBarEditor
 
 
     $titleEditor = $('#ts-admin-bar-title')
-    editor = new TypeStation.TextHtmlEditor(@ts, $titleEditor, $titleEditor.data('ts'))
-    @ts.editors.set $titleEditor.attr('id'), editor
+    if $titleEditor.length > 0
+      editor = new TypeStation.TextHtmlEditor(@ts, $titleEditor, $titleEditor.data('ts'))
+      @ts.editors.set $titleEditor.attr('id'), editor
 
     $editEditor = $('#ts-admin-bar-settings')
-    editor = new TypeStation.EntityEditor(@ts, $editEditor, $editEditor.data('ts'))
-    @ts.editors.set $editEditor.attr('id'), editor
+    if $editEditor.length > 0
+      editor = new TypeStation.EntityEditor(@ts, $editEditor, $editEditor.data('ts'))
+      @ts.editors.set $editEditor.attr('id'), editor
 
   enable: ->
     $('#ts-admin-bar').removeClass('ts-hidden')
