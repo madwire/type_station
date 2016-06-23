@@ -55,6 +55,8 @@ $admin-bar-icon-size: 26.5pt;
         text-transform: uppercase;
         cursor: pointer;
         font-size: $admin-bar-icon-size;
+        width: 8%;
+        min-width: 80px;
         .smaller { font-size: 0.5em; margin-left: -10px; }
       }
 
@@ -73,6 +75,7 @@ $admin-bar-icon-size: 26.5pt;
 
       &.ts-actions {
         width: 15%;
+        min-width: 204px;
 
         .ts-button-group {
           width: 100%;
@@ -80,6 +83,7 @@ $admin-bar-icon-size: 26.5pt;
 
         button {
           width: 30%;
+          min-width: 68px;
           cursor: pointer;
           line-height: 1.5em;
           i {
@@ -88,7 +92,7 @@ $admin-bar-icon-size: 26.5pt;
         }
 
         .ts-button-primary {
-          width: 40%;
+          // width: 40%;
         }
       }
     }
