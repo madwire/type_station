@@ -145,10 +145,10 @@ handleCreateEditEntity = (editor) ->
                   if isArray v
                     for val in v
                       check_value = val.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
-                      valid = valid && checkValue check_value
+                      valid = valid && checkValue check_value, field
                   else
                     check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
-                    valid = checkValue check_value
+                    valid = checkValue check_value, field
             else
               break
             contents.push({ field: k, value: v, type: field.type })
