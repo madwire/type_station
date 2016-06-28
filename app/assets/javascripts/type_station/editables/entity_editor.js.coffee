@@ -108,7 +108,9 @@ handleCreateEditEntity = (editor) ->
                       valid = valid && checkValue check_value, field
                   else
                     check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
-                    valid = checkValue check_value, field
+                    if check_value.length > 0
+                      if check_value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
+                        valid = checkValue check_value, field
 
             else
               break
@@ -118,7 +120,11 @@ handleCreateEditEntity = (editor) ->
               message: 'Are you sure you want to save changes?'
               callback: (value) ->
                 if value
-                  self.ts.save()
+                  self.ts.callbacks['onSave']() if self.ts.callbacks['onSave']
+                  self.ts.models.each (id, m) ->
+                    m.save() if m.id != model.id
+                  self.ts.callbacks['onSaved']() if self.ts.callbacks['onSaved']
+
                   for k,v of data
                     model.set(k, { field: k, value: v, type: self.fields[k].type })
                   model.save ->
@@ -148,7 +154,9 @@ handleCreateEditEntity = (editor) ->
                       valid = valid && checkValue check_value, field
                   else
                     check_value = v.replace(/[\'\"\=\|\@\{\}\.\,\:\;\/\&\?\!\(\)]/g, '')
-                    valid = checkValue check_value, field
+                    if check_value.length > 0
+                      if check_value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
+                        valid = checkValue check_value, field
             else
               break
             contents.push({ field: k, value: v, type: field.type })
@@ -179,6 +187,7 @@ checkValue = (value, field) ->
   if field.type == 'multiple_select'
     testValue value
   else
+    console.log value.length
     if value.length > 0
       if value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
         testValue value
