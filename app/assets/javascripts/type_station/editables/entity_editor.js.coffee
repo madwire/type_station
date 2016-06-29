@@ -187,7 +187,6 @@ checkValue = (value, field) ->
   if field.type == 'multiple_select'
     testValue value
   else
-    console.log value.length
     if value.length > 0
       if value.length > 1 # seems to be an issue when the text length is around 1 ? :confused:
         testValue value

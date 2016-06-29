@@ -41,3 +41,9 @@ class @TypeStation.Model extends @TypeStation.Store
       success: (data) ->
         self._reset() #reset model to a clean state
         callback(data)
+      error: (jqxhr, status, err) ->
+        vex.dialog.alert
+          message: "#{window.titleize status}: #{jqxhr.responseJSON.message}"
+          buttons: [
+            $.extend({}, vex.dialog.buttons.YES, text: 'Close')
+          ]
