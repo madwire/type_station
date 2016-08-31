@@ -30,7 +30,7 @@ module TypeStation
 
       def model_fields
         lambda_binging = Struct.new(:model).new(model)
-        options[:fields].map do |field|
+        options[:fields].deep_dup.map do |field|
           if field[:options] && field[:options].is_a?(Proc)
             field[:options] = lambda_binging.instance_exec(&field[:options])
           end
