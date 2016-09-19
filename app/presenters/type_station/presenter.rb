@@ -63,6 +63,7 @@ module TypeStation
 
       options[:url] = h.type_station.admin_entity_url(@object)
       options[:create_url] = h.type_station.admin_entities_url
+      options[:current_user] = h.type_station_current_user
 
       TypeStation::Blocks::Entity.new(h.type_station_authorise, @object, options).render(content)
     end
