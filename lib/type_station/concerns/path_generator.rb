@@ -30,7 +30,8 @@ module TypeStation
 
         def find_by_path(path)
           search_path = File.join('',path)
-          self.or({path: search_path}, {:old_paths.in  => [search_path]}).first
+          pages = self.or({path: search_path}, {:old_paths.in  => [search_path]}).to_a
+          pages.select {|p| p.path == search_path}.first.presence || pages.select {|p| p.old_paths.include?(search_path) }.first
         end
       end
 
