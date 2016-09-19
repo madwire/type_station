@@ -17,7 +17,7 @@ TypeStation.configure do |config|
   config.authorise_with = Proc.new { true }
 
   config.current_user = Proc.new do
-    {}
+    Struct.new(:email).new("rich@madwire.co.uk")
   end
 
 end
