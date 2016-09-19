@@ -52,7 +52,7 @@ module TypeStation
       def store_old_path
         if self.path.present?
           self.old_paths << self.path
-          self.old_paths.uniq
+          self.old_paths = self.old_paths.uniq
         end
       end
 
