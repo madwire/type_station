@@ -1,8 +1,12 @@
-FROM rails:4.2.0
+FROM ruby:2.3
+ENV BUNDLE_PATH /bundler
+
 RUN apt-get update -qq && apt-get install -y build-essential
+
 RUN mkdir /workspace
 WORKDIR /workspace
+
 ADD . /workspace
-ADD Gemfile /workspace/Gemfile
-ADD Gemfile.lock /workspace/Gemfile.lock
+
 RUN bundle install --jobs 4
+ADD . /workspace

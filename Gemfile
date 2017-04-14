@@ -15,6 +15,7 @@ gem 'haml-rails'
 gem 'sass-rails'
 gem "jquery-fileupload-rails"
 gem 'cloudinary'
+gem 'therubyracer', platforms: :ruby
 
 # To use debugger
 gem 'byebug'

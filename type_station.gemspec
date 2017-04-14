@@ -17,11 +17,11 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", '~> 4.2', ">= 4.2.0"
-  s.add_dependency "mongoid", '< 6.0', '>= 4.0'
-  s.add_dependency "mongoid-tree", '~> 2.0', ">= 2.0.0"
+  s.add_dependency "rails", '~> 5.0', ">= 4.2.0"
+  s.add_dependency "mongoid", '< 7.0', '>= 4.0'
+  s.add_dependency "mongoid-tree", '~> 2.1', ">= 2.0.0"
   s.add_dependency "jquery-fileupload-rails", '~> 0.4', ">= 0.4.3"
-  s.add_dependency 'cloudinary', '~> 1.0', ">= 1.0.81"
+  s.add_dependency 'cloudinary', '~> 1.1', ">= 1.0.81"
   s.add_dependency "coffee-rails", '~> 4.1', ">= 4.1.0"
   s.add_dependency "haml-rails", '~> 0.0', ">= 0.7.0"
   s.add_dependency 'ionicons-rails', '~> 2.0'
