@@ -1,6 +1,8 @@
 class @TypeStation.AdminBarEditor
   constructor: (@ts, @$el, @data) ->
     template = @$el.html()
+    $('#ts-admin-bar').remove()
+    $('#ts-admin-bar-edit').remove()
     $('body').append(template)
     vex.defaultOptions.className = 'vex-theme-os'
 
