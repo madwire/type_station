@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", '~> 5.0', ">= 4.2.0"
+  s.add_dependency "rails", '< 6.0', ">= 4.2.0"
   s.add_dependency "mongoid", '< 7.0', '>= 4.0'
   s.add_dependency "mongoid-tree", '~> 2.1', ">= 2.0.0"
   s.add_dependency "jquery-fileupload-rails", '~> 0.4', ">= 0.4.3"
