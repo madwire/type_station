@@ -8,7 +8,7 @@ module TypeStation
     private
 
     def private_download_url
-      Cloudinary::Utils.private_download_url(params[:identifier], params[:format], attachment: true, expires_at: 1.minute.from_now )
+      Cloudinary::Utils.private_download_url([params[:identifier], params[:format]].join('.'), params[:format], resource_type: :raw, attachment: true, expires_at: 1.minute.from_now)
     end
 
   end
