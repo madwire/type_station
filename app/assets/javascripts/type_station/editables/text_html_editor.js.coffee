@@ -21,7 +21,7 @@ class @TypeStation.TextHtmlEditor
 
       editorOptions =
         toolbar:
-          buttons: ['bold', 'italic', 'underline', 'anchor', 'h1', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'removeFormat']
+          buttons: ['bold', 'italic', 'underline', 'anchor', 'h1', 'h2', 'h3', 'h4', 'unorderedlist', 'orderedlist', 'removeFormat']
         imageDragging: false
 
     @editor = new MediumEditor @$el, editorOptions
