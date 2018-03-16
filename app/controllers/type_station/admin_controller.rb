@@ -2,8 +2,8 @@ module TypeStation
   class AdminController < ::TypeStation::ApplicationController
     protect_from_forgery with: :null_session
 
-    before_filter :type_station_authenticate!
-    before_filter :type_station_authorise!
+    before_action :type_station_authenticate!
+    before_action :type_station_authorise!
 
     private
 
@@ -14,6 +14,6 @@ module TypeStation
     def type_station_authorise!
       instance_eval &TypeStation.config.authorise_with
     end
-    
+
   end
 end
