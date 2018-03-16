@@ -20,7 +20,8 @@ module TypeStation
 
     def update_contents(params)
       params.each do |data|
-        field, value, type = data[:field].to_sym, data[:value], data[:type].to_sym
+        d = data.to_unsafe_h
+        field, value, type = d[:field].to_sym, d[:value], d[:type].to_sym
         set(field, value, type)
       end
 
