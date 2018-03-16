@@ -1,5 +1,5 @@
 require 'type_station/dsl'
-
+TypeStation::Page.delete_all
 TypeStation::DSL.build 'Homepage', template: 'index_other' do
   page 'About us' do
     page 'Team', name: :team

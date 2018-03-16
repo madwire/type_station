@@ -1,16 +1,21 @@
-db:
-  image: mongo
-  command: mongod --smallfiles
-  ports:
-    - "27017"
-    - "28017"
-web:
-  build: .
-  command: bash run.sh
-  env_file: .env
-  volumes:
-    - .:/workspace
-  ports:
-    - "3000:3000"
-  links:
-    - db
+version: '3'
+services:
+  db:
+    image: mongo:3.6
+    command: mongod --smallfiles --bind_ip_all
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash run.sh
+    environment:
+      - CLOUDINARY_URL
+    volumes:
+      - .:/workspace
+      - bundler:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+volumes:
+  bundler: {}
